@@ -75,4 +75,4 @@ class Ui_MainWindow(object):
         self.label.setText(_translate("MainWindow", "SCHOOL INFO"))
         self.pushButton.setText(_translate("MainWindow", "LOGIN"))
         self.pushButton_2.setText(_translate("MainWindow", "SIGN UP"))
-import back2_rc
+
