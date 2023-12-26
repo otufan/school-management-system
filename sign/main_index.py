@@ -6,7 +6,7 @@ class MyWindow(QMainWindow):
     def __init__(self):
         super(MyWindow, self).__init__()
 
-        # Qt Designer ile tasarlanmış UI dosyasını yükle
+        
         uic.loadUi('./school-management-system/sign/main_2.ui', self)
 
 
