@@ -64,4 +64,4 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.email_label.setText(_translate("MainWindow", "E-mail"))
         self.password_label.setText(_translate("MainWindow", "Password"))
-import back2_rc
+
