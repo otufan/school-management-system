@@ -7,7 +7,6 @@ from Ui_main_3 import Ui_MainWindow
 class loginWindow(QMainWindow):
     def __init__(self):
         super(loginWindow, self).__init__()
-        self.loginWindow= Ui_MainWindow()
         self.loginWindow.setupUi(self)
 
 if __name__ == "__main__":
