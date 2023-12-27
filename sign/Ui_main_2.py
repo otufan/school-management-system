@@ -69,4 +69,4 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.login_Button.setText(_translate("MainWindow", "LOGIN"))
         self.signup_Button.setText(_translate("MainWindow", "SIGNUP"))
-import b_rc
+
