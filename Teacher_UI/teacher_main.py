@@ -5,6 +5,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from Ui_teacher import *
 from Classes.task import Task
+from Classes.user import User
 #from Classes.authentication import Authentication
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -13,9 +14,34 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Teacher Page")
 
-        #current_user = Authentication.get_current_user()
+        #self.current_user = Authentication.get_current_user()
+        self.current_user_email = 'created@example.com'
         #self.load_tasks(current_user.email)
-        self.load_tasks('created@example.com')
+        
+        self.load_tasks(self.current_user_email)
+        #initial values of task create form
+        self.assignee_input_combo.addItem("")
+        self.assignee_input_combo.addItems(User.get_emails_for_task_assign())
+        self.due_date_input.setDate(QtCore.QDate(1000, 1, 1))
+
+        #signal to create task button
+        self.create_task_button.clicked.connect(self.create_task)
+
+    def create_task(self):
+        task_name = self.task_name_input.text()
+        due_date = self.due_date_input.date().toString("dd/MM/yyyy")
+        assignee = self.assignee_input_combo.currentText()
+
+        if task_name != "" and assignee != "":
+            Task.create_task(task_name,due_date,assignee,self.current_user_email)
+            print("Task is created", task_name, due_date, assignee)
+            self.load_tasks(self.current_user_email)
+
+            self.assignee_input_combo.setCurrentIndex(0)
+            self.task_name_input.setText("")
+        else:
+            self.showUpdateAlert(f"Task Name and Assignee cannot be empty")
+        
 
     def load_tasks(self, email):
         tasks = Task.retrieve_task_per_creator(email)
@@ -68,29 +94,33 @@ class Main_Window(QMainWindow, Ui_MainWindow):
     def on_item_changed(self, item):
         row = item.row()
         col = item.column()
-        task_name_ilk = item.tableWidget().item(row, 0).text()
-        assigned_to_email = item.tableWidget().item(row, 2).text()
-        new_value = item.text()
-        print("new value: ", new_value)
+        # print(item.row(), item.column())
+        if item.tableWidget().item(row, 2) is not None:
+            task_name_ilk = item.tableWidget().item(row, 0).text()
+            assigned_to_email = item.tableWidget().item(row, 2).text()
+            new_value = item.text()
+            print("new value: ", new_value)
 
-        if 1 == 0:  # Task Name column
-            if Task.update_task_teacher(task_name_ilk, assigned_to_email, task_name=new_value):
-                self.showUpdateAlert(f"Task name is updated to {new_value}")
+            if 1 == 0:  # Task Name column
+                if Task.update_task_teacher(task_name_ilk, assigned_to_email, task_name=new_value):
+                    self.showUpdateAlert(f"Task name is updated to {new_value}")
+                else:
+                    print("Task not updated.")
+            elif col == 1:  # Due Date column
+                if Task.update_task_teacher(task_name_ilk, assigned_to_email, due_date=new_value):
+                    self.showUpdateAlert(f"Due date is updated to {new_value}")
+                else:
+                    print("Task not updated.")
+            elif col == 4:  # Status column
+                if Task.update_task_teacher(task_name_ilk, assigned_to_email, status=new_value):
+                    self.showUpdateAlert(f"Status is updated to {new_value}")
+                else:
+                    print("Task not updated.")
             else:
-                print("Task not updated.")
-        elif col == 1:  # Due Date column
-            if Task.update_task_teacher(task_name_ilk, assigned_to_email, due_date=new_value):
-                self.showUpdateAlert(f"Due date is updated to {new_value}")
-            else:
-                print("Task not updated.")
-        elif col == 4:  # Status column
-            if Task.update_task_teacher(task_name_ilk, assigned_to_email, status=new_value):
-                self.showUpdateAlert(f"Status is updated to {new_value}")
-            else:
-                print("Task not updated.")
+                # Handle the case where the item was not edited
+                print("Item not edited.")
         else:
-            # Handle the case where the item was not edited
-            print("Item not edited.")
+            print("Item is None.")
 
 
     
