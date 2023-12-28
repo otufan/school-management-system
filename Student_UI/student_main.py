@@ -36,7 +36,6 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         # Set the combo box delegate for the "Status" column (column index 4)
         table_widget.setItemDelegateForColumn(4, ComboBoxDelegate())
 
-
         # Populate the table
         for row, task in enumerate(tasks):
             table_widget.setItem(row, 0, QTableWidgetItem(task.task_name))
@@ -46,39 +45,54 @@ class Main_Window(QMainWindow, Ui_MainWindow):
             
             # Create a QTableWidgetItem for the "Status" column
             status_item = QTableWidgetItem(task.status)
-
-            print("Before setting UserRole:", task)
             status_item.setData(Qt.UserRole, task)
-            print("After setting UserRole:", task)
 
             table_widget.setItem(row, 4, status_item)
-
             table_widget.setItem(row, 5, QTableWidgetItem(task.created))
+
+        # Connect the itemDoubleClicked signal to a slot
+        table_widget.itemDoubleClicked.connect(self.on_item_double_clicked)
+
+    def on_item_double_clicked(self, item):
+        # Prevent editing for certain columns
+        if item.column() in [0, 1, 2, 3, 5]:
+            item.setFlags(item.flags() & ~Qt.ItemIsEditable)  # Clear the editable flag
+        else:
+            item.setFlags(item.flags() | Qt.ItemIsEditable)  # Set the editable flag
+
 
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
-        combo_box = QComboBox(parent)
-        # Add items to the combo box
-        combo_box.addItems(["Open", "In Progress", "Completed"])  # Add your status options
-        return combo_box
+        if index.column() == 4:
+            combo_box = QComboBox(parent)
+            combo_box.addItems(["Open", "In Progress", "Completed"])
+            return combo_box
+        return None
 
     def setEditorData(self, editor, index):
         value = index.model().data(index, role=Qt.DisplayRole)
         editor.setCurrentText(value)
 
     def setModelData(self, editor, model, index):
-        value = editor.currentText()
-        model.setData(index, value, role=Qt.EditRole)
+        if index.column() == 4:
+            value = editor.currentText()
+            model.setData(index, value, role=Qt.EditRole)
 
-        # Update the data in the JSON file
-        row = index.row()
+            row = index.row()
+            task_name = model.data(model.index(row, 0), role=Qt.DisplayRole)
+            created_by = model.data(model.index(row, 3), role=Qt.DisplayRole)
+            new_status = editor.currentText()
 
-        # Retrieve task_name, due_date, and created_by attributes
-        task_name = model.data(model.index(row, 0), role=Qt.DisplayRole)
-        due_date = model.data(model.index(row, 1), role=Qt.DisplayRole)
-        created_by = model.data(model.index(row, 3), role=Qt.DisplayRole)
-        # Get the new value selected in the combo box
-        new_status = editor.currentText()
+            Task.update_task_status(task_name, created_by, new_status)
+
+            # Show an alert
+            self.showUpdateAlert(task_name, new_status)
+
+    def showUpdateAlert(self, task_name, new_status):
+        message = f"Task:  {task_name} status is updated to: {new_status}"
+        QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
+
+
 
 
 if __name__ == "__main__":
@@ -92,3 +106,5 @@ if __name__ == "__main__":
 
     except:
         print("Exiting")
+
+
