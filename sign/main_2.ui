@@ -76,7 +76,7 @@ background-image: url(:/newPrefix/back2.png);</string>
         </rect>
        </property>
        <property name="styleSheet">
-        <string notr="true">background-image: url(:/newPrefix/Downloads/Blue Back to School Your Story.png);</string>
+        <string notr="true">background-image: url(:/newPrefix/C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/sign/assets/back2.png);</string>
        </property>
        <property name="frameShape">
         <enum>QFrame::NoFrame</enum>

@@ -33,7 +33,7 @@ class Ui_MainWindow(object):
         self.frame.setObjectName("frame")
         self.frame_2 = QtWidgets.QFrame(self.frame)
         self.frame_2.setGeometry(QtCore.QRect(80, 110, 321, 341))
-        self.frame_2.setStyleSheet("background-image: url(:/newPrefix/Downloads/Blue Back to School Your Story.png);")
+        self.frame_2.setStyleSheet("background-image: url(:/newPrefix/C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/sign/assets/back2.png);")
         self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
