@@ -1,11 +1,11 @@
 import sys
-sys.path.append('/Users/onur/Documents/GitHub/school-management-system')
+sys.path.append('school-management-system')
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from Ui_teacher import *
 from Classes.task import Task
-from Classes.user import User
+from Classes.user import *
 #from Classes.authentication import Authentication
 
 class Main_Window(QMainWindow, Ui_MainWindow):
