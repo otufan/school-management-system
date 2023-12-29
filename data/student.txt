@@ -46,45 +46,6 @@
     "city": "gampel",
     "email": "ss@gmail.com",
     "password": "123Qwe.."
-  },
-  {
-    "name": "selma",
-    "surname": "eslem",
-    "birthday": "1994-01-01",
-    "city": "gampel",
-    "email": "ss@gmail.com",
-    "password": "123Qwe.."
-  },
-  {
-    "name": "selma",
-    "surname": "eslem",
-    "birthday": "1994-01-01",
-    "city": "gampel",
-    "email": "ss@gmail.com",
-    "password": "123Qwe.."
-  },
-  {
-    "name": "selma",
-    "surname": "eslem",
-    "birthday": "1994-01-01",
-    "city": "gampel",
-    "email": "ss@gmail.com",
-    "password": "123Qwe.."
-  },
-  {
-    "name": "selma",
-    "surname": "eslem",
-    "birthday": "1994-01-01",
-    "city": "gampel",
-    "email": "ss@gmail.com",
-    "password": "123Qwe.."
-  },
-  {
-    "name": "selma",
-    "surname": "eslem",
-    "birthday": "1994-01-01",
-    "city": "gampel",
-    "email": "ss@gmail.com",
-    "password": "123Qwe.."
   }
+  
 ]
