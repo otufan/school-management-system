@@ -94,5 +94,64 @@ class Task():
             print(f"Error reading tasks from file: {e}")
             return []
 
+    @classmethod
+    def update_task_status(cls, task_name, creator_email, new_status):
+        try:
+            with open(cls.FILE_PATH, 'r') as file:
+                tasks = []
+                for line in file:
+                    task_data = json.loads(line)
+                    if task_data["task_name"] == task_name and task_data["created_by"] == creator_email:
+                        # Update the status of the matching task
+                        task_data["status"] = new_status
+                        print("Task updated.")
+                    tasks.append(task_data)
+
+            # Rewrite the entire file with updated tasks
+            with open(cls.FILE_PATH, 'w') as file:
+                for task in tasks:
+                    json.dump(task, file)
+                    file.write('\n')
+        except Exception as e:
+            print(f"Error updating task: {e}")
+
+    @classmethod
+    def update_task_teacher(cls, task_name_ilk, assigned_to_email, **kwargs):
+        try:
+            with open(cls.FILE_PATH, 'r') as file:
+                tasks = []
+                task_updated = False
+                for line in file:
+                    task_data = json.loads(line)
+                    if task_data["task_name"] == task_name_ilk and task_data["assigned_to_email"] == assigned_to_email:
+                        # Check if there are changes to be made
+                        if any(task_data[key] != kwargs.get(key) for key in kwargs):
+                            # Update the task based on provided keyword arguments
+                            for key, value in kwargs.items():
+                                task_data[key] = value
+                                print(f"{key.capitalize()} updated by teacher to {value}")
+                            task_updated = True
+                    tasks.append(task_data)
+
+            # Rewrite the entire file with updated tasks
+            with open(cls.FILE_PATH, 'w') as file:
+                for task in tasks:
+                    json.dump(task, file)
+                    file.write('\n')
+            print("Task updated.")
+            return task_updated
+        except Exception as e:
+            print(f"Error updating task: {e}")
+            return False
+
+    @classmethod
+    def get_alternative_emails(cls):
+        dummy_emails = ["assigned@example.com", "user2@example.com", "user3@example.com"]
+        return dummy_emails
+        
+
+
+
+
 
     

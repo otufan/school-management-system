@@ -8,6 +8,7 @@ class MyWindow(QMainWindow):
 
         
         uic.loadUi('./school-management-system/sign/main_2.ui', self)
+     
 
 
 if __name__ == "__main__":
