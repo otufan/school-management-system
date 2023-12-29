@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/onur/Documents/GitHub/school-management-system/Student_UI/Student_Ui.ui'
+# Form implementation generated from reading ui file 'c:\Users\omert\OneDrive\Desktop\Pyhton HM\school-management-system\Student_UI\Student_Ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -321,11 +321,6 @@ class Ui_MainWindow(object):
         self.label_plan_lesson.setFont(font)
         self.label_plan_lesson.setStyleSheet("color: rgb(238, 155, 0);")
         self.label_plan_lesson.setObjectName("label_plan_lesson")
-        self.student_plan_lesson_list = QtWidgets.QTextEdit(self.student_plan)
-        self.student_plan_lesson_list.setGeometry(QtCore.QRect(40, 90, 450, 500))
-        self.student_plan_lesson_list.setMinimumSize(QtCore.QSize(450, 500))
-        self.student_plan_lesson_list.setStyleSheet("color: rgb(238, 155, 0);")
-        self.student_plan_lesson_list.setObjectName("student_plan_lesson_list")
         self.label_plan_mentor = QtWidgets.QLabel(self.student_plan)
         self.label_plan_mentor.setGeometry(QtCore.QRect(540, 30, 300, 50))
         self.label_plan_mentor.setMinimumSize(QtCore.QSize(300, 50))
@@ -336,11 +331,16 @@ class Ui_MainWindow(object):
         self.label_plan_mentor.setFont(font)
         self.label_plan_mentor.setStyleSheet("color: rgb(238, 155, 0);")
         self.label_plan_mentor.setObjectName("label_plan_mentor")
-        self.student_plan_mentor_list = QtWidgets.QTextEdit(self.student_plan)
-        self.student_plan_mentor_list.setGeometry(QtCore.QRect(540, 90, 450, 500))
-        self.student_plan_mentor_list.setMinimumSize(QtCore.QSize(450, 500))
-        self.student_plan_mentor_list.setStyleSheet("color: rgb(238, 155, 0);")
+        self.student_plan_lesson_list = QtWidgets.QTableWidget(self.student_plan)
+        self.student_plan_lesson_list.setGeometry(QtCore.QRect(50, 90, 441, 501))
+        self.student_plan_lesson_list.setObjectName("student_plan_lesson_list")
+        self.student_plan_lesson_list.setColumnCount(0)
+        self.student_plan_lesson_list.setRowCount(0)
+        self.student_plan_mentor_list = QtWidgets.QTableWidget(self.student_plan)
+        self.student_plan_mentor_list.setGeometry(QtCore.QRect(520, 90, 451, 501))
         self.student_plan_mentor_list.setObjectName("student_plan_mentor_list")
+        self.student_plan_mentor_list.setColumnCount(0)
+        self.student_plan_mentor_list.setRowCount(0)
         self.tabWidget.addTab(self.student_plan, "")
         self.student_to_do = QtWidgets.QWidget()
         self.student_to_do.setObjectName("student_to_do")
@@ -431,7 +431,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.student_dance, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -439,7 +439,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(3)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -453,19 +453,19 @@ class Ui_MainWindow(object):
         self.student_main_lesson.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\';\">Buraya ders tarihi gelecek</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Buraya ders tarihi gelecek</p></body></html>"))
         self.student_main_mentor.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\';\">Buraya mentor toplantı tarihi gelecek</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Buraya mentor toplantı tarihi gelecek</p></body></html>"))
         self.student_singout_button.setText(_translate("MainWindow", "Sing Out"))
         self.student_main_mail.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:16pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-weight:600;\">You\'ve got a message. !...</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:16pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">You\'ve got a message. !...</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.student_main), _translate("MainWindow", "Main"))
         self.label_profile_name.setText(_translate("MainWindow", "Name :"))
         self.label_profile_surname.setText(_translate("MainWindow", "Surname :"))
