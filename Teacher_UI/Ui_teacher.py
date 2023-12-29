@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/onur/Documents/GitHub/school-management-system/Teacher_UI/teacher.ui'
+# Form implementation generated from reading ui file 'c:\Users\omert\OneDrive\Desktop\Pyhton HM\school-management-system\Teacher_UI\teacher.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1024, 684)
+        MainWindow.resize(1024, 769)
         MainWindow.setMinimumSize(QtCore.QSize(800, 600))
         MainWindow.setStyleSheet("background-color: rgb(187, 62, 3);")
         MainWindow.setToolButtonStyle(QtCore.Qt.ToolButtonIconOnly)
@@ -254,11 +254,6 @@ class Ui_MainWindow(object):
         self.label_plan_lesson.setFont(font)
         self.label_plan_lesson.setStyleSheet("color: rgb(238, 155, 0);")
         self.label_plan_lesson.setObjectName("label_plan_lesson")
-        self.teacher_plan_lesson_list = QtWidgets.QTextEdit(self.teacher_plan)
-        self.teacher_plan_lesson_list.setGeometry(QtCore.QRect(40, 90, 450, 500))
-        self.teacher_plan_lesson_list.setMinimumSize(QtCore.QSize(450, 500))
-        self.teacher_plan_lesson_list.setStyleSheet("color: rgb(238, 155, 0);")
-        self.teacher_plan_lesson_list.setObjectName("teacher_plan_lesson_list")
         self.label_plan_mentor = QtWidgets.QLabel(self.teacher_plan)
         self.label_plan_mentor.setGeometry(QtCore.QRect(540, 30, 300, 50))
         self.label_plan_mentor.setMinimumSize(QtCore.QSize(300, 50))
@@ -269,11 +264,22 @@ class Ui_MainWindow(object):
         self.label_plan_mentor.setFont(font)
         self.label_plan_mentor.setStyleSheet("color: rgb(238, 155, 0);")
         self.label_plan_mentor.setObjectName("label_plan_mentor")
-        self.teacher_plan_mentor_list = QtWidgets.QTextEdit(self.teacher_plan)
-        self.teacher_plan_mentor_list.setGeometry(QtCore.QRect(540, 90, 450, 500))
-        self.teacher_plan_mentor_list.setMinimumSize(QtCore.QSize(450, 500))
-        self.teacher_plan_mentor_list.setStyleSheet("color: rgb(238, 155, 0);")
-        self.teacher_plan_mentor_list.setObjectName("teacher_plan_mentor_list")
+        self.teacher_plan_lesson_list = QtWidgets.QTableWidget(self.teacher_plan)
+        self.teacher_plan_lesson_list.setGeometry(QtCore.QRect(30, 80, 441, 481))
+        self.teacher_plan_lesson_list.setObjectName("teacher_plan_lesson_list")
+        self.teacher_plan_lesson_list.setColumnCount(0)
+        self.teacher_plan_lesson_list.setRowCount(0)
+        self.tableWidget = QtWidgets.QTableWidget(self.teacher_plan)
+        self.tableWidget.setGeometry(QtCore.QRect(530, 80, 461, 481))
+        self.tableWidget.setObjectName("tableWidget")
+        self.tableWidget.setColumnCount(0)
+        self.tableWidget.setRowCount(0)
+        self.create_lesson = QtWidgets.QPushButton(self.teacher_plan)
+        self.create_lesson.setGeometry(QtCore.QRect(70, 600, 93, 28))
+        self.create_lesson.setObjectName("create_lesson")
+        self.create_mentor = QtWidgets.QPushButton(self.teacher_plan)
+        self.create_mentor.setGeometry(QtCore.QRect(540, 600, 111, 28))
+        self.create_mentor.setObjectName("create_mentor")
         self.tabWidget.addTab(self.teacher_plan, "")
         self.teacher_to_do = QtWidgets.QWidget()
         self.teacher_to_do.setObjectName("teacher_to_do")
@@ -282,34 +288,34 @@ class Ui_MainWindow(object):
         self.tasks_tableWidget.setObjectName("tasks_tableWidget")
         self.tasks_tableWidget.setColumnCount(0)
         self.tasks_tableWidget.setRowCount(0)
-        self.widget = QtWidgets.QWidget(self.teacher_to_do)
-        self.widget.setGeometry(QtCore.QRect(60, 50, 331, 131))
-        self.widget.setObjectName("widget")
-        self.create_task_form_layout = QtWidgets.QFormLayout(self.widget)
+        self.layoutWidget = QtWidgets.QWidget(self.teacher_to_do)
+        self.layoutWidget.setGeometry(QtCore.QRect(60, 50, 331, 131))
+        self.layoutWidget.setObjectName("layoutWidget")
+        self.create_task_form_layout = QtWidgets.QFormLayout(self.layoutWidget)
         self.create_task_form_layout.setContentsMargins(0, 0, 0, 0)
         self.create_task_form_layout.setObjectName("create_task_form_layout")
-        self.task_name_label = QtWidgets.QLabel(self.widget)
+        self.task_name_label = QtWidgets.QLabel(self.layoutWidget)
         self.task_name_label.setStyleSheet("")
         self.task_name_label.setObjectName("task_name_label")
         self.create_task_form_layout.setWidget(0, QtWidgets.QFormLayout.LabelRole, self.task_name_label)
-        self.task_name_input = QtWidgets.QLineEdit(self.widget)
+        self.task_name_input = QtWidgets.QLineEdit(self.layoutWidget)
         self.task_name_input.setObjectName("task_name_input")
         self.create_task_form_layout.setWidget(0, QtWidgets.QFormLayout.FieldRole, self.task_name_input)
-        self.assignee_label = QtWidgets.QLabel(self.widget)
+        self.assignee_label = QtWidgets.QLabel(self.layoutWidget)
         self.assignee_label.setObjectName("assignee_label")
         self.create_task_form_layout.setWidget(1, QtWidgets.QFormLayout.LabelRole, self.assignee_label)
-        self.assignee_input_combo = QtWidgets.QComboBox(self.widget)
+        self.assignee_input_combo = QtWidgets.QComboBox(self.layoutWidget)
         self.assignee_input_combo.setObjectName("assignee_input_combo")
         self.create_task_form_layout.setWidget(1, QtWidgets.QFormLayout.FieldRole, self.assignee_input_combo)
-        self.due_date_label = QtWidgets.QLabel(self.widget)
+        self.due_date_label = QtWidgets.QLabel(self.layoutWidget)
         self.due_date_label.setObjectName("due_date_label")
         self.create_task_form_layout.setWidget(2, QtWidgets.QFormLayout.LabelRole, self.due_date_label)
-        self.due_date_input = QtWidgets.QDateEdit(self.widget)
+        self.due_date_input = QtWidgets.QDateEdit(self.layoutWidget)
         self.due_date_input.setMinimumDate(QtCore.QDate(2023, 1, 1))
         self.due_date_input.setCalendarPopup(True)
         self.due_date_input.setObjectName("due_date_input")
         self.create_task_form_layout.setWidget(2, QtWidgets.QFormLayout.FieldRole, self.due_date_input)
-        self.create_task_button = QtWidgets.QPushButton(self.widget)
+        self.create_task_button = QtWidgets.QPushButton(self.layoutWidget)
         self.create_task_button.setObjectName("create_task_button")
         self.create_task_form_layout.setWidget(3, QtWidgets.QFormLayout.FieldRole, self.create_task_button)
         self.tabWidget.addTab(self.teacher_to_do, "")
@@ -497,7 +503,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.admin_page, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 37))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -505,7 +511,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(4)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -519,19 +525,19 @@ class Ui_MainWindow(object):
         self.teacher_main_lesson.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\';\">Buraya ders tarihi gelecek</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Buraya ders tarihi gelecek</p></body></html>"))
         self.teacher_main_mentor.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\';\">Buraya mentor toplantı tarihi gelecek</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Buraya mentor toplantı tarihi gelecek</p></body></html>"))
         self.teacher_singout_button.setText(_translate("MainWindow", "Sing Out"))
         self.teacher_main_mail.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'.AppleSystemUIFont\'; font-size:16pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-weight:600;\">You\'ve got a message. !...</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:16pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-weight:600;\">You\'ve got a message. !...</span></p></body></html>"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teacher_main), _translate("MainWindow", "Main"))
         self.label_profile_name.setText(_translate("MainWindow", "Name :"))
         self.label_profile_surname.setText(_translate("MainWindow", "Surname :"))
@@ -542,6 +548,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teacher_profile), _translate("MainWindow", "Profile"))
         self.label_plan_lesson.setText(_translate("MainWindow", "Lesson Plan"))
         self.label_plan_mentor.setText(_translate("MainWindow", "Mentor Meeting Plan"))
+        self.create_lesson.setText(_translate("MainWindow", "Lesson create"))
+        self.create_mentor.setText(_translate("MainWindow", "Mentoring create"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.teacher_plan), _translate("MainWindow", "Lesson / Mentor Plan"))
         self.task_name_label.setText(_translate("MainWindow", "Task Name"))
         self.assignee_label.setText(_translate("MainWindow", "Assignee"))

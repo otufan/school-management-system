@@ -61,7 +61,7 @@ class User():
     def create_lessons(cls, lesson_info):
         try:
             with open(cls.FILE_LESSON, 'a', newline='') as file:
-                writer = csv.witer(file)
+                writer = csv.writer(file)
 
                 if not os.path.isfile(cls.FILE_LESSON):
                     writer.writerow(['Lesson Date','Lesson Name','Lesson Start Time','Lesson Finish Time'])
@@ -109,7 +109,7 @@ class User():
     def create_mentor(cls, mentor_info):
         try:
             with open(cls.FILE_MENTOR, 'a', newline='') as file:
-                writer = csv.witer(file)
+                writer = csv.writer(file)
 
                 if not os.path.isfile(cls.FILE_MENTOR):
                     writer.writerow(['Mentoring Date','Mentoring Subject','Mentoring Start Time','Mentoring Finish Time'])

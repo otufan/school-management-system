@@ -1,5 +1,5 @@
 import sys
-sys.path.append('school-management-system')
+sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
 from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -100,18 +100,6 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         return table
 
-if __name__ == "__main__":
-    app = QApplication(sys.argv)
-    app_window = Main_Window()    
-    widget = QtWidgets.QStackedWidget()
-    widget.addWidget(app_window)
-    widget.show()
-    try:
-        sys.exit(app.exec_())
-
-    except:
-        print("Exiting")
-
 
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
@@ -144,8 +132,17 @@ class ComboBoxDelegate(QStyledItemDelegate):
         message = f"Task:  {task_name} status is updated to: {new_status}"
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
 
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    app_window = Main_Window()    
+    widget = QtWidgets.QStackedWidget()
+    widget.addWidget(app_window)
+    widget.show()
+    try:
+        sys.exit(app.exec_())
 
-   
+    except:
+        print("Exiting")
 
 
 

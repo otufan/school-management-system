@@ -1,11 +1,13 @@
 import sys
-sys.path.append('school-management-system')
+sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from Ui_teacher import *
 from Classes.task import Task
 from Classes.user import *
+from Teacher_UI.CreateLesson import *
+from Teacher_UI.CreateMentor import *
 #from Classes.authentication import Authentication
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -26,6 +28,20 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         #signal to create task button
         self.create_task_button.clicked.connect(self.create_task)
+
+        self.create_lesson.clicked.connect(self.open_create_lesson)
+        self.create_mentor.clicked.connect(self.open_create_mentor)
+
+    def open_create_lesson(self):
+
+        self.open_create_lesson_window = CreateLesson()
+        self.open_create_lesson_window.show()
+
+    def open_create_mentor(self):
+
+        self.open_create_mentor_window = CreateMentor()
+        self.open_create_mentor_window.show()
+
 
     def create_task(self):
         task_name = self.task_name_input.text()
