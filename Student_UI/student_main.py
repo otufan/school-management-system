@@ -1,5 +1,5 @@
 import sys
-sys.path.append('/Users/onur/Documents/GitHub/school-management-system')
+sys.path.append('C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/Student_UI')
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
