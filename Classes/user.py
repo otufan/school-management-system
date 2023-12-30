@@ -1,8 +1,10 @@
 import json
+import csv
+import os
 from PyQt5.QtWidgets import QMessageBox
 
 class User():
-    FILE_PATH = "C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/data/users.txt"
+    FILE_PATH = "./school-management-system/data/users.txt"
     _current_user= None
     
     def __init__(self, name, surname, email, birthdate, city, phone_number, password, user_type):
