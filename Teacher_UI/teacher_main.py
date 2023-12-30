@@ -1,6 +1,6 @@
 import sys
 
-sys.path.append("/Users/onur/Documents/GitHub/school-management-system")
+sys.path.append("C:/Users/umut/Documents/GitHub/school system/school-management-system")
 
 
 from PyQt5.QtCore import *

@@ -1,5 +1,5 @@
 import sys
-sys.path.append("/Users/onur/Documents/GitHub/school-management-system/")
+sys.path.append("C:/Users/umut/Documents/GitHub/school system/school-management-system")
 from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -17,11 +17,35 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Student Page")
 
         User.set_currentuser("student@example.com")
+
+        
+
         #current_user = Authentication.get_current_user()
         #self.load_tasks(current_user.email)
         self.load_tasks('assigned@example.com')
         self.show_Lesson_Schedule
         self.show_Mentor_Schedule
+
+        self.show_information()
+
+
+
+    def show_information(self):
+
+        user = User._current_user
+        
+
+        self.student_profil_name_edit.setText(user.name)
+        self.student_profil_surname_edit.setText(user.surname)
+        self.student_profil_birth_edit.setText(user.birthdate)
+        self.student_profil_mail_edit.setText(user.email)
+        self.student_profil_city_edit.setText(user.city)
+        self.student_profil_tel_edit.setText(user.phone_number)
+        
+
+
+    
+
 
     def load_tasks(self, email):
         tasks = Task.retrieve_task_per_assignee(email)

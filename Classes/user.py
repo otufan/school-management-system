@@ -5,7 +5,7 @@ from PyQt5.QtCore import QDateTime, Qt
 from PyQt5.QtWidgets import QMessageBox
 
 class User():
-    FILE_PATH = "data/users.txt"
+    FILE_PATH = "C:/Users/umut/Documents/GitHub/school system/school-management-system/data/users.txt"
     ANNOUNCEMENT_FILE_PATH = "data/announcements.txt"
     _current_user= None
     

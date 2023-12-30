@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 
 class Task():
-    FILE_PATH = "data/tasks.txt"
+    FILE_PATH = "C:/Users/umut/Documents/GitHub/school system/school-management-system/data/tasks.txt"
 
     def __init__(self,task_name,due_date,assigned_to_email,created_by,status="Open",created=None) -> None:
         self.task_name = task_name
