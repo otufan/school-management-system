@@ -1,5 +1,7 @@
 import sys
+
 sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
+
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
