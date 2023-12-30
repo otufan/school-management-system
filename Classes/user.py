@@ -1,7 +1,11 @@
 import json
+import csv
+import os
 
 class User():
     FILE_PATH = "data/users.txt"
+    FILE_LESSON = "data/lessons.csv"
+    FILE_MENTOR = "data/mentors.csv"
 
     def __init__(self, name, surname, email, birthdate, city, phone_number, password, user_type):
         self.name = name
@@ -52,3 +56,104 @@ class User():
 #     password="12345",
 #     user_type="student"
 # )
+    
+    @classmethod
+    def create_lessons(cls, lesson_info):
+        try:
+            with open(cls.FILE_LESSON, 'a', newline='') as file:
+                writer = csv.writer(file)
+
+                if not os.path.isfile(cls.FILE_LESSON):
+                    writer.writerow(['Lesson Date','Lesson Name','Lesson Start Time','Lesson Finish Time'])
+
+                writer.writerow(lesson_info)
+        except Exception as e:
+            print(f"Error in create lesson: {e}")
+
+    @classmethod
+    def edit_lessons(cls, lesson_info):
+        rows = []
+        try:
+            with open(cls.FILE_LESSON, 'r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row[0] == lesson_info[0]:
+                        row[1] = lesson_info[1]
+                        row[2] = lesson_info[2]
+                        row[3] = lesson_info[3]
+                    rows.append(row)
+
+            with open(cls.FILE_LESSON, 'w', newline='') as file:
+                writer = csv.witer(file)#
+                writer.writerows(rows)
+        except Exception as e:
+            print(f"Error in edit lesson: {e}")
+
+    @classmethod
+    def get_LessonSchedule(cls):
+        lessons_info = []
+
+        try:
+            with open(cls.FILE_LESSON, 'r', newline='') as file:
+                reader = csv.reader(file)
+                next(reader)
+                for row in reader:
+                    lessons_info.append(row)
+        
+        except Exception as e:
+            print(f"Error in getting lesson: {e}")
+
+        return lessons_info
+
+    @classmethod
+    def create_mentor(cls, mentor_info):
+        try:
+            with open(cls.FILE_MENTOR, 'a', newline='') as file:
+                writer = csv.writer(file)
+
+                if not os.path.isfile(cls.FILE_MENTOR):
+                    writer.writerow(['Mentoring Date','Mentoring Subject','Mentoring Start Time','Mentoring Finish Time'])
+
+                writer.writerow(mentor_info)
+        except Exception as e:
+            print(f"Error in create mentoring: {e}")
+
+    @classmethod
+    def edit_mentor(cls, mentor_info):
+        rows = []
+        try:
+            with open(cls.FILE_MENTOR, 'r', newline='') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row[0] == mentor_info[0]:
+                        row[1] = mentor_info[1]
+                        row[2] = mentor_info[2]
+                        row[3] = mentor_info[3]
+                    rows.append(row)
+
+            with open(cls.FILE_LESSON, 'w', newline='') as file:
+                writer = csv.witer(file)#
+                writer.writerows(rows)
+        except Exception as e:
+            print(f"Error in edit lesson: {e}")
+    
+    @classmethod
+    def get_Mentor_Schedule(cls):
+        mentor_info = []
+
+        try:
+            with open(cls.FILE_MENTOR, 'r', newline='') as file:
+                reader = csv.reader(file)
+                next(reader)
+                for row in reader:
+                    mentor_info.append(row)
+        
+        except Exception as e:
+            print(f"Error in getting mentorings: {e}")
+        return mentor_info
+        
+
+
+
+
+
