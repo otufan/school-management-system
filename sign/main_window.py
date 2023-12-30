@@ -27,6 +27,7 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         self.signup_Button.clicked.connect(self.open_signup)
         self.signup_Button.clicked.connect(self.close)
         
+        
     
     def create_Student(self,name, surname, email, birthday, city,phone_number, password):
         if not User.email_exists(email):
@@ -106,7 +107,9 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
             if user_data:
                 # successful enter for users
                 user_type = user_data.get('user_type')
+                User.set_currentuser(email)
                 self.open_main_window(user_type)
+                
             else:
                 self.ui_main_3_window.statusBar().showMessage("Invalid email or password!", 2000)
 
@@ -160,7 +163,8 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         self.ui_main_3.setupUi(self.ui_main_3_window)
         self.ui_main_3_window.show()
         self.ui_main_3_window.resize(440,400)
-        self.ui_main_3.enter_Button.clicked.connect(self.check_enter)   
+        self.ui_main_3.enter_Button.clicked.connect(self.check_enter) 
+         
             
     def open_signup(self):
         self.ui_main_3_window = QtWidgets.QMainWindow()
