@@ -1,6 +1,7 @@
 import sys
+import re
 
-sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
+sys.path.append("C:/Users/ahmet/Documents/GitHub/school-management-system")
 
 
 from PyQt5.QtCore import *
@@ -13,7 +14,7 @@ from Teacher_UI.CreateMentor import *
 #from Classes.authentication import Authentication
 
 class Main_Window(QMainWindow, Ui_MainWindow):
-    def __init__(self):
+    def __init__(self): 
         super(Main_Window,self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Teacher Page")
@@ -33,6 +34,44 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+
+        self.create_teacher_account_button.clicked.connect(self.check_enter_signup)
+
+    def check_enter_signup(self):
+        name = self.teacher_name_admin.text()
+        surname = self.teache_surname_admin.text()
+        birthday = self.teacher_birthdate_admin.date().toString(QtCore.Qt.ISODate) #ISO standart for Date
+        city = self.teacher_city_admin.text()
+        email = self.teacher_email_admin.text()
+        phone_number=self.teacher_tel_admin.text()
+        password = self.teacher_password_admin.text()
+        if (name == '' or surname == '' or birthday=='' or city == '' or email == '' or password == ''):
+            self.ui_main_3_window.statusBar().showMessage("Please fill in the blanks!", 2000)
+        elif not self.is_valid_email(email):
+            self.ui_main_3_window.statusBar().showMessage("Please enter a valid email address!", 2000)
+        elif not self.is_valid_password(password):
+            self.ui_main_3_window.statusBar().showMessage("Please enter a valid password!", 2000)
+        else:
+            self.create_Teacher(name, surname,email, birthday, city,phone_number, password)
+
+    def is_valid_email(self, email):
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(email_regex, email)
+    
+    def is_valid_password(self,password):
+        password = self.teacher_password_admin.text()
+
+        if len(password) <= 8 and any(c.isalpha() for c in password) and any(c.isdigit() for c in password) and any(c.isascii() and not c.isalnum() for c in password):
+            return True
+        else:
+            return False
+    
+    def create_Teacher(self,name, surname, email, birthday, city,phone_number, password):
+        if not User.email_exists(email):
+            User.create_user(name, surname, email, birthday, city, phone_number, password, user_type="teacher")
+            print("User created successfully.")
+        else:
+            QMessageBox.warning(None, 'Warning', f'The email {email} already exists.', QMessageBox.Ok)
 
     def open_create_lesson(self):
 
