@@ -1,11 +1,12 @@
 import sys
-sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
+sys.path.append("/Users/onur/Documents/GitHub/school-management-system/")
 from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from Ui_Student_Ui import *
 from Classes.task import Task
+from Classes.user import User
 #from Classes.authentication import Authentication
 
 
@@ -15,6 +16,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Student Page")
 
+        User.set_currentuser("student@example.com")
         #current_user = Authentication.get_current_user()
         #self.load_tasks(current_user.email)
         self.load_tasks('assigned@example.com')
