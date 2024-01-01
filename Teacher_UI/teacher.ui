@@ -47,7 +47,7 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="teacher_main">
      <attribute name="title">
@@ -757,7 +757,7 @@ p, li { white-space: pre-wrap; }
        <string>Mentor Meeting Plan</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="teacher_plan_lesson_list">
+     <widget class="QTableWidget" name="teacher_plan_lesson">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -767,7 +767,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QTableWidget" name="teacher_plan_mentoring_list">
+     <widget class="QTableWidget" name="teacher_plan_mentoring">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -941,25 +941,6 @@ p, li { white-space: pre-wrap; }
        <string>Lesson Attendance Status</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="teacher_attendance_lesson_list">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>90</y>
-        <width>450</width>
-        <height>500</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_mentor_status">
       <property name="geometry">
        <rect>
@@ -995,23 +976,24 @@ p, li { white-space: pre-wrap; }
        <string>Mentor Meeting Attendance Status</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="teacher_attendance_mentor_list">
+     <widget class="QTableWidget" name="teacher_attendance_lesson">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>90</y>
+        <width>481</width>
+        <height>511</height>
+       </rect>
+      </property>
+     </widget>
+     <widget class="QTableWidget" name="teacher_attendance_mentor">
       <property name="geometry">
        <rect>
         <x>540</x>
         <y>90</y>
-        <width>450</width>
-        <height>500</height>
+        <width>451</width>
+        <height>511</height>
        </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
       </property>
      </widget>
     </widget>
@@ -1393,7 +1375,7 @@ background-color: rgb(148, 210, 189);</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>26</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>

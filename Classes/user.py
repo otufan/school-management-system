@@ -9,8 +9,11 @@ class User():
     FILE_PATH = "data/users.txt"
     FILE_LESSON = "data/lessons.csv"
     FILE_MENTOR = "data/mentors.csv"
+    FILE_ATT_LESSON = "data/lesson_attendance.csv"
+    FILE_ATT_MENTOR = "data/mentor_attendance.csv"
     table_lesson = None
     table_mentoring = None
+    table_student = None
 
     def __init__(self, name, surname, email, birthdate, city, phone_number, password, user_type):
         self.name = name
@@ -115,6 +118,197 @@ class User():
             print(f"Error in getting lesson: {e}")
 
         return cls.table_lesson
+    
+    @classmethod
+    def get_Lesson_Attendance(cls):
+        if cls.table_lesson is None: 
+            cls.table_lesson = QTableWidget()
+            cls.table_lesson.setColumnCount(2) 
+
+        try:
+            with open(cls.FILE_LESSON, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_lesson.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1:
+                        cls.table_lesson.insertRow(row_number)
+                        lesson_name = row[1]
+                        cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(lesson_name)) 
+                        button = QPushButton("Students List for Lessons")
+                        button.clicked.connect(lambda _, lesson=lesson_name: cls.open_students_page_lesson(lesson))
+                        cls.table_lesson.setCellWidget(row_number, 1, button) 
+                        row_number += 1
+            
+        except Exception as e:
+            print(f"Error in getting lesson: {e}")
+
+        return cls.table_lesson
+    
+    @classmethod
+    def get_Mentor_Attendance(cls):
+        if cls.table_mentoring is None: 
+            cls.table_mentoring = QTableWidget()
+            cls.table_mentoring.setColumnCount(2) 
+
+        try:
+            with open(cls.FILE_MENTOR, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_mentoring.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1:
+                        cls.table_mentoring.insertRow(row_number)
+                        mentor_name = row[1]
+                        cls.table_mentoring.setItem(row_number, 0, QTableWidgetItem(mentor_name)) 
+                        button = QPushButton("Students List for Mentorings")
+                        button.clicked.connect(lambda _, mentor=mentor_name: cls.open_students_page_mentor(mentor))
+                        cls.table_mentoring.setCellWidget(row_number, 1, button) 
+                        row_number += 1
+            
+        except Exception as e:
+            print(f"Error in getting lesson: {e}")
+
+        return cls.table_lesson
+    
+    @classmethod
+    def open_students_page_lesson(cls, item):
+
+        selected_lesson = item
+        students = cls.get_students() 
+
+        if students:
+            cls.students_window = QWidget()
+            cls.students_table = QTableWidget()
+            cls.students_table.setColumnCount(4) 
+            cls.students_table.setRowCount(len(students))  
+
+            header = ["E-Mail","Name", "Surname", "Attendance"]
+            cls.students_table.setHorizontalHeaderLabels(header)
+
+            for row, (email, name, surname) in enumerate(students):
+                cls.students_table.setItem(row, 0, QTableWidgetItem(email))
+                cls.students_table.setItem(row, 1, QTableWidgetItem(name))
+                cls.students_table.setItem(row, 2, QTableWidgetItem(surname))
+
+                attended_btn = QPushButton("Attended")
+                attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_lesson(selected_lesson, r, "Attended"))
+
+                not_attended_btn = QPushButton("Not Attended")
+                not_attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_lesson(selected_lesson, r, "Not Attended"))
+
+                buttons_layout = QHBoxLayout()
+                buttons_layout.addWidget(attended_btn)
+                buttons_layout.addWidget(not_attended_btn)
+
+                widget = QWidget()
+                widget.setLayout(buttons_layout)
+
+                cls.students_table.setCellWidget(row, 3, widget)
+
+            layout = QVBoxLayout()
+            layout.addWidget(cls.students_table)
+            cls.students_window.setLayout(layout)
+            cls.students_window.setWindowTitle(f"Students in {selected_lesson}")
+            cls.students_window.show()
+        else:
+            QMessageBox.warning(cls, "No Students", "There are no students for this lesson.")
+
+
+    @classmethod
+    def mark_attendance_lesson(cls, lesson_name, row, attendance_status):
+       
+        btn_widget = cls.students_table.cellWidget(row, 3)
+        attended_btn = btn_widget.layout().itemAt(0).widget()
+        not_attended_btn = btn_widget.layout().itemAt(1).widget()
+        attended_btn.setEnabled(False)
+        not_attended_btn.setEnabled(False)
+
+        student_email = cls.students_table.item(row, 0).text()
+        student_name = cls.students_table.item(row, 1).text()
+        student_surname = cls.students_table.item(row, 2).text()
+
+        with open(cls.FILE_ATT_LESSON, "a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow([lesson_name, student_email, student_name, student_surname, attendance_status])
+
+    
+    @classmethod
+    def get_students(cls):
+        students = []
+        with open(cls.FILE_PATH, 'r') as file:
+            data = file.readlines()
+            for line in data:
+                user_data = json.loads(line)
+                if user_data.get('user_type') == 'student':
+                    name = user_data.get('name')
+                    surname = user_data.get('surname')
+                    email = user_data.get('email')
+                    students.append((email, name, surname))
+        return students
+    
+    
+    @classmethod
+    def open_students_page_mentor(cls, item):
+
+        selected_mentor = item
+        students = cls.get_students() 
+
+        if students:
+            cls.students_window = QWidget()
+            cls.students_table = QTableWidget()
+            cls.students_table.setColumnCount(4) 
+            cls.students_table.setRowCount(len(students))  
+
+            header = ["E-Mail","Name", "Surname", "Attendance"]
+            cls.students_table.setHorizontalHeaderLabels(header)
+
+            for row, (email, name, surname) in enumerate(students):
+                cls.students_table.setItem(row, 0, QTableWidgetItem(email))
+                cls.students_table.setItem(row, 1, QTableWidgetItem(name))
+                cls.students_table.setItem(row, 2, QTableWidgetItem(surname))
+
+                attended_btn = QPushButton("Attended")
+                attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_mentor(selected_mentor, r, "Attended"))
+
+                not_attended_btn = QPushButton("Not Attended")
+                not_attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_mentor(selected_mentor, r, "Not Attended"))
+
+                buttons_layout = QHBoxLayout()
+                buttons_layout.addWidget(attended_btn)
+                buttons_layout.addWidget(not_attended_btn)
+
+                widget = QWidget()
+                widget.setLayout(buttons_layout)
+
+                cls.students_table.setCellWidget(row, 3, widget)
+
+            layout = QVBoxLayout()
+            layout.addWidget(cls.students_table)
+            cls.students_window.setLayout(layout)
+            cls.students_window.setWindowTitle(f"Students in {selected_mentor}")
+            cls.students_window.show()
+        else:
+            QMessageBox.warning(cls, "No Students", "There are no students for this lesson.")
+
+    @classmethod
+    def mark_attendance_mentor(cls, mentor_name, row, attendance_status):
+       
+        btn_widget = cls.students_table.cellWidget(row, 3)
+        attended_btn = btn_widget.layout().itemAt(0).widget()
+        not_attended_btn = btn_widget.layout().itemAt(1).widget()
+        attended_btn.setEnabled(False)
+        not_attended_btn.setEnabled(False)
+
+        student_email = cls.students_table.item(row, 0).text()
+        student_name = cls.students_table.item(row, 1).text()
+        student_surname = cls.students_table.item(row, 2).text()
+
+        with open(cls.FILE_ATT_MENTOR, "a", newline="") as file:
+            writer = csv.writer(file)
+            writer.writerow([mentor_name, student_email, student_name, student_surname, attendance_status])
 
     @classmethod
     def create_mentor(cls, mentor_info):

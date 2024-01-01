@@ -1,3 +1,4 @@
+import csv
 import sys
 sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
 
@@ -11,6 +12,8 @@ from Teacher_UI.CreateMentor import *
 #from Classes.authentication import Authentication
 
 class Main_Window(QMainWindow, Ui_MainWindow):
+
+
     def __init__(self):
         super(Main_Window,self).__init__()
         self.setupUi(self)
@@ -31,6 +34,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.show_Lesson_Schedule()
         self.show_Mentor_Schedule()
+        self.show_Lesson_Attendance()
+        self.show_Mentor_Attendance()
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
         self.update_lessons.clicked.connect(self.refresh_lesson)
@@ -175,8 +180,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Lesson_Schedule(self):
 
-        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson_list')
-
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson')
         table = User.get_LessonSchedule()
         layout = QVBoxLayout()
         layout.addWidget(table)        
@@ -185,12 +189,27 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Mentor_Schedule(self):
 
-        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring_list')
-    
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring')    
         table = User.get_Mentor_Schedule()
         layout = QVBoxLayout()
         layout.addWidget(table)        
         teacher_plan_tab.setLayout(layout)
+  
+    def show_Lesson_Attendance(self):
+
+        teacher_lesson_attendance = self.findChild(QTableWidget, 'teacher_attendance_lesson')
+        table = User.get_Lesson_Attendance()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        teacher_lesson_attendance.setLayout(layout)
+
+    def show_Mentor_Attendance(self):
+
+        teacher_mentor_attendance = self.findChild(QTableWidget, 'teacher_attendance_mentor')
+        table = User.get_Mentor_Attendance()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        teacher_mentor_attendance.setLayout(layout)
 
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
@@ -216,3 +235,4 @@ if __name__ == "__main__":
 
     except:
         print("Exiting")
+

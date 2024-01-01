@@ -66,7 +66,6 @@ class Main_Window(QMainWindow, Ui_MainWindow):
     def show_Lesson_Schedule(self):
 
         student_plan_tab = self.findChild(QTableWidget, 'student_plan_lesson_list')
-
         table = User.get_LessonSchedule()
         layout = QVBoxLayout()
         layout.addWidget(table)        
@@ -75,8 +74,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Mentor_Schedule(self):
 
-        student_plan_tab = self.findChild(QTableWidget, 'student_plan_mentor_list')
-    
+        student_plan_tab = self.findChild(QTableWidget, 'student_plan_mentor_list')    
         table = User.get_Mentor_Schedule()
         layout = QVBoxLayout()
         layout.addWidget(table)        

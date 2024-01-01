@@ -1,3 +1,5 @@
 {"name": "Admin", "surname": "Test", "email": "admin@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "admin"}
 {"name": "Teacher", "surname": "Test", "email": "teacher@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "teacher"}
-{"name": "Student", "surname": "Test", "email": "student@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "student"}
+{"name": "Ali", "surname": "Veli", "email": "student@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "student"}
+{"name": "Hasan", "surname": "Mehmet", "email": "student@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "student"}
+{"name": "Elif", "surname": "Yildiz", "email": "student@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "student"}
