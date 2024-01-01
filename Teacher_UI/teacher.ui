@@ -47,7 +47,7 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="currentIndex">
-     <number>1</number>
+     <number>4</number>
     </property>
     <widget class="QWidget" name="teacher_main">
      <attribute name="title">
@@ -675,7 +675,7 @@ color: rgb(255, 255, 255);
        <string>Mentor Meeting Plan</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="teacher_plan_lesson_list">
+     <widget class="QTableWidget" name="teacher_plan_lesson">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -685,7 +685,7 @@ color: rgb(255, 255, 255);
        </rect>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="teacher_plan_mentoring">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -700,12 +700,12 @@ color: rgb(255, 255, 255);
        <rect>
         <x>70</x>
         <y>600</y>
-        <width>93</width>
+        <width>131</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Lesson create</string>
+       <string>Lesson create/edit</string>
       </property>
      </widget>
      <widget class="QPushButton" name="create_mentor">
@@ -713,12 +713,38 @@ color: rgb(255, 255, 255);
        <rect>
         <x>540</x>
         <y>600</y>
-        <width>111</width>
+        <width>141</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Mentoring create</string>
+       <string>Mentoring create/edit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_lessons">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>600</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Lesson refresh</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_mentoring">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>600</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Mentoring refresh</string>
       </property>
      </widget>
     </widget>
@@ -833,25 +859,6 @@ color: rgb(255, 255, 255);
        <string>Lesson Attendance Status</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="teacher_attendance_lesson_list">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>90</y>
-        <width>450</width>
-        <height>500</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_mentor_status">
       <property name="geometry">
        <rect>
@@ -887,23 +894,24 @@ color: rgb(255, 255, 255);
        <string>Mentor Meeting Attendance Status</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="teacher_attendance_mentor_list">
+     <widget class="QTableWidget" name="teacher_attendance_lesson">
       <property name="geometry">
        <rect>
-        <x>540</x>
+        <x>30</x>
         <y>90</y>
-        <width>450</width>
-        <height>500</height>
+        <width>481</width>
+        <height>511</height>
        </rect>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
+     </widget>
+     <widget class="QTableWidget" name="tableWidget">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>90</y>
+        <width>401</width>
+        <height>511</height>
+       </rect>
       </property>
      </widget>
     </widget>
@@ -1285,7 +1293,7 @@ background-color: rgb(148, 210, 189);</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>34</height>
+     <height>21</height>
     </rect>
    </property>
   </widget>
