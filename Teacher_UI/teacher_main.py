@@ -18,7 +18,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Teacher Page")
 
-        User.set_currentuser("teacher@example.com")
+        User.set_currentuser("admin@example.com")
         #self.current_user = Authentication.get_current_user()
         self.current_user_email = 'created@example.com'
         #self.load_tasks(current_user.email)
@@ -29,6 +29,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
             tab_widget.removeTab(6)
 
         self.display_announcements()
+        self.display_announcement_to_delete()
 
         self.show_information()
         
@@ -48,7 +49,29 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.create_mentor.clicked.connect(self.open_create_mentor)
         self.create_announcement_button.clicked.connect(self.create_announcement)
 
-        #self.announcement_to_delete_combobox.clicked.connect(self.delete_announcement)
+        self.delete_announcement_button.clicked.connect(self.delete_announcement)
+        #self.teacher_profil_city_edit.textChanged.connect(self.on_city_changed)
+        #self.teacher_profil_tel_edit.textChanged.connect(self.on_tel_changed)
+
+    def on_city_changed(self):
+        new_city = self.teacher_profil_city_edit.toPlainText()
+        User.update_user_information(User._current_user.email, city=new_city)
+        self.showUpdateAlert("City is updated")
+
+    def on_tel_changed(self):
+        new_tel = self.teacher_profil_tel_edit.text()
+        updated_info = {"phone_number": new_tel }
+        User.update_user_information(User._current_user.email, **updated_info)
+        self.showUpdateAlert("Phone number is updated")
+
+    def display_announcement_to_delete(self):
+        user = User._current_user
+        announcements_to_delete = User.get_announcements_to_delete(user.email, user.user_type)
+        self.announcement_to_delete_combobox.clear()
+        self.announcement_to_delete_combobox.addItem("")
+        for announcement in announcements_to_delete:
+            self.announcement_to_delete_combobox.addItem(announcement['announcement'])
+        pass
 
     def show_information(self):
         user = User._current_user
@@ -61,15 +84,28 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def delete_announcement(self):
         announcement = self.announcement_to_delete_combobox.currentText()
-        User.delete_announcement(announcement,)
-        pass
+        if announcement != "":
+            User.delete_announcement(announcement)
+            self.announcement_to_delete_combobox.setCurrentIndex(0)
+            self.display_announcements()
+            self.showUpdateAlert(f"{announcement} is deleted!")
+
+        else:
+            self.showUpdateAlert("Please select announcement to delete!")
+        
 
     def create_announcement(self):
         text = self.announcement_lineEdit.text()
         email = User._current_user.email
         if text != "":
-            User.create_announcement(text,email)
-            self.display_announcements()
+            success, message = User.create_announcement(text, email)
+            if success:
+                self.display_announcements()
+                self.display_announcement_to_delete()
+                self.showUpdateAlert(f"{message}")
+            else:
+                self.showUpdateAlert(f"{message}")
+        
         else:
             self.showUpdateAlert(f"Announcement text cannot be empty!")
         

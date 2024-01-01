@@ -53,6 +53,29 @@ class User():
             print("User saved to file.")
         except Exception as e:
             print(f"Error saving user to file: {e}")
+    
+    @classmethod
+    def update_user_information(cls, email, **kwargs):
+        try:
+            # Read existing users
+            with open(cls.FILE_PATH, 'r') as file:
+                users = [json.loads(line) for line in file]
+
+            # Find the user with the specified email
+            for user in users:
+                if user.get('email') == email:
+                    # Update user information based on kwargs
+                    user.update(kwargs)
+
+            # Write the updated users back to the file
+            with open(cls.FILE_PATH, 'w') as file:
+                for user in users:
+                    json.dump(user, file)
+                    file.write('\n')
+
+            print("User information updated.")
+        except Exception as e:
+            print(f"Error updating user information: {e}")
 
     @classmethod
     def get_emails_for_task_assign(cls):
@@ -427,17 +450,15 @@ class User():
         return announcements
     
     @classmethod
-    def delete_announcement(cls, text, created_by, timestamp):
+    def delete_announcement(cls, text):
         try:
             # Read existing announcements
             with open(cls.ANNOUNCEMENT_FILE_PATH, 'r') as file:
                 announcements = [json.loads(line) for line in file]
 
-            # Find and remove the announcement based on text, created by, and timestamp
+            # Find and remove the announcement based on the name
             updated_announcements = [announcement for announcement in announcements
-                                    if announcement.get('announcement') != text
-                                    or announcement.get('created_by') != created_by
-                                    or announcement.get('timestamp') != timestamp]
+                                    if announcement.get('announcement') != text]
 
             # Write the updated announcements back to the file
             with open(cls.ANNOUNCEMENT_FILE_PATH, 'w') as file:
@@ -452,8 +473,16 @@ class User():
     @classmethod
     def create_announcement(cls, announcement, created_by):
         try:
+            # Read existing announcements
+            with open(cls.ANNOUNCEMENT_FILE_PATH, 'r') as file:
+                existing_announcements = [json.loads(line) for line in file]
+
+            # Check if the announcement with the same name already exists
+            if any(existing_announcement['announcement'] == announcement for existing_announcement in existing_announcements):
+                return False, "Error: Announcement with the same name already exists."
+
+            # Append the announcement data to the JSON file
             with open(cls.ANNOUNCEMENT_FILE_PATH, 'a') as file:
-                # Append the announcement data to the JSON file
                 announcement_data = {
                     'announcement': announcement,
                     'created_by': created_by,
@@ -461,7 +490,8 @@ class User():
                 }
                 json.dump(announcement_data, file)
                 file.write('\n')
-            print("Announcement created and saved to file.")
+            
+            return True, "Announcement created"
         except Exception as e:
             print(f"Error creating announcement: {e}")
         
