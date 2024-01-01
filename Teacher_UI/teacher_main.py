@@ -29,8 +29,13 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         #signal to create task button
         self.create_task_button.clicked.connect(self.create_task)
 
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+        self.update_lessons.clicked.connect(self.refresh_lesson)
+        self.update_mentoring.clicked.connect(self.refresh_mentor)
+
 
     def open_create_lesson(self):
 
@@ -41,6 +46,32 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.open_create_mentor_window = CreateMentor()
         self.open_create_mentor_window.show()
+
+    def refresh_lesson(self):
+
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson_list')
+        table = User.get_LessonSchedule()  # Bu metodun, QTableWidget ile uyumlu bir QTableWidget döndürdüğünü varsayıyorum
+
+        # Eğer tablo varsa, mevcut tablonun içeriğini güncelle
+        if isinstance(table, QTableWidget):
+            teacher_plan_tab.clear()  # Mevcut tablonun içeriğini temizle
+
+            # Yeni tabloyu mevcut tabloya kopyala
+            teacher_plan_tab.setColumnCount(table.columnCount())
+            teacher_plan_tab.setRowCount(table.rowCount())
+
+            for i in range(table.rowCount()):
+                for j in range(table.columnCount()):
+                    item = table.item(i, j)
+                    if item is not None:
+                        teacher_plan_tab.setItem(i, j, QTableWidgetItem(item.text()))
+            teacher_plan_tab.update()
+
+    def refresh_mentor(self):
+
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring_list')
+        teacher_plan_tab.clearContents()
+        self.show_Mentor_Schedule()
 
 
     def create_task(self):
@@ -137,12 +168,29 @@ class Main_Window(QMainWindow, Ui_MainWindow):
                 print("Item not edited.")
         else:
             print("Item is None.")
-
-
     
     def showUpdateAlert(self, alert):
         message = alert
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
+
+    def show_Lesson_Schedule(self):
+
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson_list')
+
+        table = User.get_LessonSchedule()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        teacher_plan_tab.setLayout(layout)
+      
+
+    def show_Mentor_Schedule(self):
+
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring_list')
+    
+        table = User.get_Mentor_Schedule()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        teacher_plan_tab.setLayout(layout)
 
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):

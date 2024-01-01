@@ -18,9 +18,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         #current_user = Authentication.get_current_user()
         #self.load_tasks(current_user.email)
         self.load_tasks('assigned@example.com')
-        self.show_Lesson_Schedule
-        self.show_Mentor_Schedule
-
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
+        
     def load_tasks(self, email):
         tasks = Task.retrieve_task_per_assignee(email)
         print(tasks)
@@ -65,41 +65,22 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Lesson_Schedule(self):
 
-        #student_plan_tab = self.findChild(QWidget, 'student_plan')
         student_plan_tab = self.findChild(QTableWidget, 'student_plan_lesson_list')
-        print('BURADA')
 
-        table = self.create_table(User.get_LessonSchedule(), 'student_plan_lesson_list')
-        table_layout = student_plan_tab.layout()
-        table_layout.addWidget(table)
+        table = User.get_LessonSchedule()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        student_plan_tab.setLayout(layout)
+      
 
     def show_Mentor_Schedule(self):
 
-        student_plan_tab = self.findChild(QWidget, 'student_plan')
+        student_plan_tab = self.findChild(QTableWidget, 'student_plan_mentor_list')
     
-        table = self.create_table(User.get_Mentor_Schedule(), 'student_plan_mentor_list')
-        table_layout = student_plan_tab.layout()
-        table_layout.addWidget(table)
-
-    def create_table(self, infos, table_name):
-
-        table = self.findChild(QTableWidget, table_name)
-        table.setRowCount(len(infos))
-        table.setColumnCount(len(infos[0]))
-
-        if table_name == 'student_plan_lesson_list':
-            table.setHorizontalHeaderLabels(['Lesson Date','Lesson Name','Lesson Start Time','Lesson Finish Time'])
-        else:
-            table.setHorizontalHeaderLabels(['Mentoring Date','Mentoring Subject','MEntoring Start Time','Mentoring Finish Time'])
-
-        for row_index, row_info in enumerate(infos):
-            for column_index, info in enumerate(row_info):
-                infos.setItem(row_index, column_index, QTableWidgetItem(info))
-
-        infos.resizeColumnsToContents()
-
-        return table
-
+        table = User.get_Mentor_Schedule()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        student_plan_tab.setLayout(layout)
 
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):

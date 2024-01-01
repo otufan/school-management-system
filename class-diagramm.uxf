@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <diagram program="umlet" version="14.3.0">
-  <zoom_level>7</zoom_level>
+  <zoom_level>6</zoom_level>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>161</x>
-      <y>308</y>
-      <w>189</w>
-      <h>112</h>
+      <x>216</x>
+      <y>264</y>
+      <w>162</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Admin
 --
@@ -21,10 +21,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>448</x>
-      <y>294</y>
-      <w>189</w>
-      <h>112</h>
+      <x>462</x>
+      <y>252</y>
+      <w>162</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Student
 --
@@ -42,10 +42,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>763</x>
-      <y>308</y>
-      <w>189</w>
-      <h>112</h>
+      <x>732</x>
+      <y>264</y>
+      <w>162</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Teacher
 --
@@ -58,10 +58,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>399</x>
+      <x>420</x>
       <y>0</y>
-      <w>315</w>
-      <h>224</h>
+      <w>270</w>
+      <h>192</h>
     </coordinates>
     <panel_attributes>User
 --
@@ -91,10 +91,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>266</x>
-      <y>217</y>
-      <w>294</w>
-      <h>105</h>
+      <x>306</x>
+      <y>186</y>
+      <w>252</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>400.0;10.0;400.0;40.0;10.0;40.0;10.0;130.0</additional_attributes>
@@ -102,10 +102,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>539</x>
-      <y>217</y>
-      <w>21</w>
-      <h>91</h>
+      <x>540</x>
+      <y>186</y>
+      <w>18</w>
+      <h>78</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;110.0</additional_attributes>
@@ -113,10 +113,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>539</x>
-      <y>217</y>
-      <w>329</w>
-      <h>105</h>
+      <x>540</x>
+      <y>186</y>
+      <w>282</w>
+      <h>90</h>
     </coordinates>
     <panel_attributes>lt=&lt;&lt;-</panel_attributes>
     <additional_attributes>10.0;10.0;10.0;40.0;450.0;40.0;450.0;130.0</additional_attributes>
@@ -124,10 +124,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>0</x>
-      <y>567</y>
-      <w>182</w>
-      <h>98</h>
+      <x>78</x>
+      <y>486</y>
+      <w>156</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>Sign_Up_UI
 --
@@ -140,10 +140,10 @@
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>77</x>
-      <y>399</y>
-      <w>476</w>
-      <h>182</h>
+      <x>144</x>
+      <y>342</y>
+      <w>408</w>
+      <h>156</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=
@@ -154,10 +154,10 @@ m2=
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>770</x>
-      <y>546</y>
-      <w>245</w>
-      <h>203</h>
+      <x>738</x>
+      <y>468</y>
+      <w>210</w>
+      <h>174</h>
     </coordinates>
     <panel_attributes>Teacher_UI
 --
@@ -180,10 +180,10 @@ m2=
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>532</x>
-      <y>399</y>
-      <w>21</w>
-      <h>168</h>
+      <x>534</x>
+      <y>342</y>
+      <w>18</w>
+      <h>144</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=
@@ -194,10 +194,10 @@ m2=
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>455</x>
-      <y>553</y>
-      <w>245</w>
-      <h>133</h>
+      <x>468</x>
+      <y>474</y>
+      <w>210</w>
+      <h>114</h>
     </coordinates>
     <panel_attributes>Student_UI
 --
@@ -215,10 +215,10 @@ m2=
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1057</x>
-      <y>266</y>
-      <w>182</w>
-      <h>98</h>
+      <x>984</x>
+      <y>228</y>
+      <w>156</w>
+      <h>84</h>
     </coordinates>
     <panel_attributes>Sign_In_UI
 --
@@ -230,10 +230,10 @@ m2=
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>588</x>
-      <y>217</y>
-      <w>567</w>
-      <h>63</h>
+      <x>582</x>
+      <y>186</y>
+      <w>486</w>
+      <h>54</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=
@@ -244,10 +244,10 @@ m2=
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>854</x>
-      <y>413</y>
-      <w>21</w>
-      <h>147</h>
+      <x>810</x>
+      <y>354</y>
+      <w>18</w>
+      <h>126</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=
@@ -258,10 +258,10 @@ m2=
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>791</x>
-      <y>854</y>
-      <w>189</w>
-      <h>112</h>
+      <x>756</x>
+      <y>732</y>
+      <w>162</w>
+      <h>96</h>
     </coordinates>
     <panel_attributes>Admin_UI
 --
@@ -275,10 +275,10 @@ m2=
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>868</x>
-      <y>742</y>
-      <w>21</w>
-      <h>126</h>
+      <x>822</x>
+      <y>636</y>
+      <w>18</w>
+      <h>108</h>
     </coordinates>
     <panel_attributes>lt=-
 m1=

@@ -1,11 +1,16 @@
 import json
 import csv
 import os
+from PyQt5.QtCore import *
+from PyQt5.QtWidgets import *
+from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 
 class User():
     FILE_PATH = "data/users.txt"
     FILE_LESSON = "data/lessons.csv"
     FILE_MENTOR = "data/mentors.csv"
+    table_lesson = None
+    table_mentoring = None
 
     def __init__(self, name, surname, email, birthdate, city, phone_number, password, user_type):
         self.name = name
@@ -60,99 +65,111 @@ class User():
     @classmethod
     def create_lessons(cls, lesson_info):
         try:
-            with open(cls.FILE_LESSON, 'a', newline='') as file:
-                writer = csv.writer(file)
+            rows = []
+            flag = True
 
-                if not os.path.isfile(cls.FILE_LESSON):
-                    writer.writerow(['Lesson Date','Lesson Name','Lesson Start Time','Lesson Finish Time'])
+            if len(lesson_info) >= 4:
+                with open(cls.FILE_LESSON, 'r', newline='') as file:
+                    reader = csv.reader(file)
+                    for row in reader:
+                        if row and row[0] == lesson_info[0]:
+                            row[1] = lesson_info[1]
+                            row[2] = lesson_info[2]
+                            row[3] = lesson_info[3]
+                            flag = False
+                        rows.append(row)
+                    
+                    if flag:
+                        rows.append(lesson_info)
+                
+                with open(cls.FILE_LESSON, 'w', newline='') as file:
+                    writer = csv.writer(file)
 
-                writer.writerow(lesson_info)
+                    if not os.path.isfile(cls.FILE_LESSON):
+                        writer.writerow(['Lesson Date','Lesson Name','Lesson Start Time','Lesson Finish Time'])
+                    writer.writerows(rows)
+
         except Exception as e:
             print(f"Error in create lesson: {e}")
 
-    @classmethod
-    def edit_lessons(cls, lesson_info):
-        rows = []
-        try:
-            with open(cls.FILE_LESSON, 'r', newline='') as file:
-                reader = csv.reader(file)
-                for row in reader:
-                    if row[0] == lesson_info[0]:
-                        row[1] = lesson_info[1]
-                        row[2] = lesson_info[2]
-                        row[3] = lesson_info[3]
-                    rows.append(row)
-
-            with open(cls.FILE_LESSON, 'w', newline='') as file:
-                writer = csv.witer(file)#
-                writer.writerows(rows)
-        except Exception as e:
-            print(f"Error in edit lesson: {e}")
 
     @classmethod
     def get_LessonSchedule(cls):
-        lessons_info = []
+        if cls.table_lesson is None: 
+            cls.table_lesson = QTableWidget()
+            cls.table_lesson.setColumnCount(4)
 
         try:
             with open(cls.FILE_LESSON, 'r', newline='') as file:
                 reader = csv.reader(file)
-                next(reader)
+                cls.table_lesson.setRowCount(0)
+                row_number = 0
+
                 for row in reader:
-                    lessons_info.append(row)
+                    cls.table_lesson.insertRow(row_number)
+                    for column_number, info in enumerate(row):
+                        cls.table_lesson.setItem(row_number, column_number, QTableWidgetItem(info))
+                    row_number += 1
         
         except Exception as e:
             print(f"Error in getting lesson: {e}")
 
-        return lessons_info
+        return cls.table_lesson
 
     @classmethod
     def create_mentor(cls, mentor_info):
         try:
-            with open(cls.FILE_MENTOR, 'a', newline='') as file:
-                writer = csv.writer(file)
+            rows = []
+            flag = True
+            if len(mentor_info) >= 4:
+                with open(cls.FILE_MENTOR, 'r', newline='') as file:
+                    reader = csv.reader(file)
+                    for row in reader:
+                        if row and row[0] == mentor_info[0]:
+                            row[1] = mentor_info[1]
+                            row[2] = mentor_info[2]
+                            row[3] = mentor_info[3]
+                            flag = False
+                        rows.append(row)
+                    
+                    if flag:
+                        rows.append(mentor_info)
+                
+                with open(cls.FILE_MENTOR, 'w', newline='') as file:
+                    writer = csv.writer(file)
 
-                if not os.path.isfile(cls.FILE_MENTOR):
-                    writer.writerow(['Mentoring Date','Mentoring Subject','Mentoring Start Time','Mentoring Finish Time'])
+                    if not os.path.isfile(cls.FILE_MENTOR):
+                        writer.writerow(['Mentoring Date','Mentoring Subject','Mentoring Start Time','Mentoring Finish Time'])
+                    writer.writerows(rows)
 
-                writer.writerow(mentor_info)
         except Exception as e:
             print(f"Error in create mentoring: {e}")
 
-    @classmethod
-    def edit_mentor(cls, mentor_info):
-        rows = []
-        try:
-            with open(cls.FILE_MENTOR, 'r', newline='') as file:
-                reader = csv.reader(file)
-                for row in reader:
-                    if row[0] == mentor_info[0]:
-                        row[1] = mentor_info[1]
-                        row[2] = mentor_info[2]
-                        row[3] = mentor_info[3]
-                    rows.append(row)
-
-            with open(cls.FILE_LESSON, 'w', newline='') as file:
-                writer = csv.witer(file)#
-                writer.writerows(rows)
-        except Exception as e:
-            print(f"Error in edit lesson: {e}")
     
     @classmethod
     def get_Mentor_Schedule(cls):
-        mentor_info = []
+        if cls.table_mentoring is None: 
+            cls.table_mentoring = QTableWidget()
+            cls.table_mentoring.setColumnCount(4)
 
         try:
             with open(cls.FILE_MENTOR, 'r', newline='') as file:
                 reader = csv.reader(file)
-                next(reader)
+                cls.table_mentoring.setRowCount(0)
+                row_number = 0
+
                 for row in reader:
-                    mentor_info.append(row)
+                    cls.table_mentoring.insertRow(row_number)
+                    for column_number, info in enumerate(row):
+                        cls.table_mentoring.setItem(row_number, column_number, QTableWidgetItem(info))
+                    row_number += 1
         
         except Exception as e:
-            print(f"Error in getting mentorings: {e}")
-        return mentor_info
-        
+            print(f"Error in getting lesson: {e}")
 
+        return cls.table_mentoring
+    
+        
 
 
 

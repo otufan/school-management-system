@@ -767,7 +767,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="teacher_plan_mentoring_list">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -782,12 +782,12 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>70</x>
         <y>600</y>
-        <width>93</width>
+        <width>131</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Lesson create</string>
+       <string>Lesson create/edit</string>
       </property>
      </widget>
      <widget class="QPushButton" name="create_mentor">
@@ -795,12 +795,38 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>540</x>
         <y>600</y>
-        <width>111</width>
+        <width>141</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Mentoring create</string>
+       <string>Mentoring create/edit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_lessons">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>600</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Lesson refresh</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_mentoring">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>600</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Mentoring refresh</string>
       </property>
      </widget>
     </widget>
