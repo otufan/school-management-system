@@ -1,5 +1,5 @@
 import sys
-sys.path.append("C:/Users/MainUser/Desktop/tech_groupproject/school-management-system")
+sys.path.append('C:/Users/MainUser/Documents/GitHub/school-management-system')
 import re
 import json
 import pandas as pd
@@ -97,11 +97,14 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         email = self.ui_main_3.email.text()
         password = self.ui_main_3.password.text()
         if (email == '' or password == ''):
-            self.ui_main_3_window.statusBar().showMessage("Please fill in the blanks!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please fill in the blanks!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please fill in the blanks!", 2000)
         elif not self.is_valid_email(email):
-            self.ui_main_3_window.statusBar().showMessage("Please enter a valid email address!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please enter a valid email address!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please enter a valid email address!", 2000)
         elif not self.is_valid_password(password):
-            self.ui_main_3_window.statusBar().showMessage("Please enter a valid password!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please enter a valid password!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please enter a valid password!", 2000)
         else:
             user_data = User.login(email, password)
             if user_data:
@@ -111,17 +114,19 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
                 self.open_main_window(user_type)
                 
             else:
-                self.ui_main_3_window.statusBar().showMessage("Invalid email or password!", 2000)
+                QMessageBox.warning(None, 'Warning', f'Invalid email or password!', QMessageBox.Ok)
+                #self.ui_main_3_window.statusBar().showMessage("Invalid email or password!", 2000)
 
     def open_main_window(self, user_type):
         if user_type == 'admin':
-            # Admin ekranını aç
-            print("Opening admin main window...")
-            # Örneğin:
-            # admin_window = AdminMainWindow()
-            # admin_window.show()
+            # Open Admin account in Teacher UI
+            self.ui_main_3_window = QtWidgets.QMainWindow()
+            self.ui_main_3 = Ui_MainWindow_6()
+            self.ui_main_3.setupUi(self.ui_main_3_window)
+            self.ui_main_3_window.show()
+            self.ui_main_3_window.resize(440,400)
         elif user_type == 'teacher':
-            # Open teacher UI
+            # Open Teacher UI
             self.ui_main_3_window = QtWidgets.QMainWindow()
             self.ui_main_3 = Ui_MainWindow_6()
             self.ui_main_3.setupUi(self.ui_main_3_window)
@@ -147,13 +152,17 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         password = self.ui_main_3.password.text()
         repassword = self.ui_main_3.repassword.text()
         if (name == '' or surname == '' or birthday=='' or city == '' or email == '' or password == '' or repassword == ''):
-            self.ui_main_3_window.statusBar().showMessage("Please fill in the blanks!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please fill in the blanks!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please fill in the blanks!", 2000)
         elif not self.is_valid_email(email):
-            self.ui_main_3_window.statusBar().showMessage("Please enter a valid email address!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please enter a valid email address!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please enter a valid email address!", 2000)
         elif not self.is_valid_password(password):
-            self.ui_main_3_window.statusBar().showMessage("Please enter a valid password!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please enter a valid password!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please enter a valid password!", 2000)
         elif not self.is_equal_password(password, repassword):
-            self.ui_main_3_window.statusBar().showMessage("Please check your password!", 2000)
+            QMessageBox.warning(None, 'Warning', f'Please check your password!', QMessageBox.Ok)
+            #self.ui_main_3_window.statusBar().showMessage("Please check your password!", 2000)
         else:
             self.create_Student(name, surname,email, birthday, city,phone_number, password)
             
