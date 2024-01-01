@@ -1,8 +1,5 @@
 import sys
-
 sys.path.append("/Users/onur/Documents/GitHub/school-management-system")
-
-
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from Ui_teacher import *

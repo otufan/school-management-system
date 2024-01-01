@@ -7,6 +7,7 @@ from PyQt5.QtWidgets import QMessageBox
 class User():
     FILE_PATH = "data/users.txt"
     ANNOUNCEMENT_FILE_PATH = "data/announcements.txt"
+
     _current_user= None
     
     def __init__(self, name, surname, email, birthdate, city, phone_number, password, user_type):
