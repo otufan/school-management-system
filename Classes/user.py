@@ -7,14 +7,15 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 
 class User():
     FILE_PATH = "data/users.txt"
-    FILE_LESSON = "data/lessons.csv"
-    FILE_MENTOR = "data/mentors.csv"
+    ANNOUNCEMENT_FILE_PATH = "data/announcements.txt"
+
+    _current_user= None
     FILE_ATT_LESSON = "data/lesson_attendance.csv"
     FILE_ATT_MENTOR = "data/mentor_attendance.csv"
     table_lesson = None
     table_mentoring = None
     table_student = None
-
+    
     def __init__(self, name, surname, email, birthdate, city, phone_number, password, user_type):
         self.name = name
         self.surname = surname
@@ -27,9 +28,21 @@ class User():
 
     @classmethod
     def create_user(cls, name, surname, email, birthdate, city, phone_number, password, user_type):
-        new_user = cls(name, surname, email, birthdate, city, phone_number, password, user_type)
-        cls.save_user(new_user.__dict__)
-
+        # Check if the email already exists
+        if cls.email_exists(email):
+           QMessageBox.information(None, 'Warning', f'The email {email} already exists.', QMessageBox.Ok)
+            
+        else:
+            new_user = cls(name, surname, email, birthdate, city, phone_number, password, user_type)
+            cls.save_user(new_user.__dict__)
+            # Show a success message
+            QMessageBox.information(None, 'Success', 'User created successfully.', QMessageBox.Ok)
+        
+    @classmethod
+    def email_exists(cls, email):
+        existing_emails = cls.get_emails_for_task_assign()
+        return email in existing_emails
+    
     @classmethod
     def save_user(cls, user):
         try:
@@ -52,6 +65,30 @@ class User():
         except Exception as e:
             print(f"Error reading emails from file: {e}")
         return emails
+    
+    @classmethod
+    def login(cls, email, password):
+        try:
+            with open(cls.FILE_PATH, 'r') as file:
+                for line in file:
+                    user_data = json.loads(line)
+                    if user_data.get('email') == email and user_data.get('password') == password:
+                        return user_data
+        except Exception as e:
+            print(f"Error reading user data from file: {e}")
+        return None
+
+    @classmethod
+    def set_currentuser(cls, email):
+        try:
+            with open(cls.FILE_PATH, 'r') as file:
+                for line in file:
+                    user_data = json.loads(line)
+                    if user_data.get('email') == email:
+                        cls._current_user = cls(**user_data)
+                        return
+        except Exception as e:
+            print(f"Error setting current user: {e}")
 
 # Save the user information to the file
 # User.create_user(
@@ -362,6 +399,71 @@ class User():
 
         return cls.table_mentoring
     
+    @classmethod
+    def get_announcements(cls):
+        announcements = []
+        try:
+            with open(cls.ANNOUNCEMENT_FILE_PATH, 'r') as file:
+                for line in file:
+                    announcement_data = json.loads(line)
+                    announcements.append(announcement_data)
+        except Exception as e:
+            print(f"Error reading announcements from file: {e}")
+        return announcements
+    
+    @classmethod
+    def get_announcements_to_delete(cls, email, user_type):
+        announcements = []
+        try:
+            with open(cls.ANNOUNCEMENT_FILE_PATH, 'r') as file:
+                for line in file:
+                    announcement_data = json.loads(line)
+                    created_by = announcement_data.get('created_by')
+                    # Check user type and email conditions
+                    if (user_type == "admin") or (user_type == "teacher" and created_by == email):
+                        announcements.append(announcement_data)
+        except Exception as e:
+            print(f"Error reading announcements from file: {e}")
+        return announcements
+    
+    @classmethod
+    def delete_announcement(cls, text, created_by, timestamp):
+        try:
+            # Read existing announcements
+            with open(cls.ANNOUNCEMENT_FILE_PATH, 'r') as file:
+                announcements = [json.loads(line) for line in file]
+
+            # Find and remove the announcement based on text, created by, and timestamp
+            updated_announcements = [announcement for announcement in announcements
+                                    if announcement.get('announcement') != text
+                                    or announcement.get('created_by') != created_by
+                                    or announcement.get('timestamp') != timestamp]
+
+            # Write the updated announcements back to the file
+            with open(cls.ANNOUNCEMENT_FILE_PATH, 'w') as file:
+                for announcement in updated_announcements:
+                    json.dump(announcement, file)
+                    file.write('\n')
+
+            print(f"Announcement '{text}' deleted.")
+        except Exception as e:
+            print(f"Error deleting announcement: {e}")
+
+    @classmethod
+    def create_announcement(cls, announcement, created_by):
+        try:
+            with open(cls.ANNOUNCEMENT_FILE_PATH, 'a') as file:
+                # Append the announcement data to the JSON file
+                announcement_data = {
+                    'announcement': announcement,
+                    'created_by': created_by,
+                    'timestamp': QDateTime.currentDateTime().toString(Qt.ISODate)
+                }
+                json.dump(announcement_data, file)
+                file.write('\n')
+            print("Announcement created and saved to file.")
+        except Exception as e:
+            print(f"Error creating announcement: {e}")
         
 
 

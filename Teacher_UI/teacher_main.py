@@ -9,7 +9,6 @@ from Classes.task import Task
 from Classes.user import *
 from Teacher_UI.CreateLesson import *
 from Teacher_UI.CreateMentor import *
-#from Classes.authentication import Authentication
 
 class Main_Window(QMainWindow, Ui_MainWindow):
 
@@ -19,9 +18,19 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Teacher Page")
 
+        User.set_currentuser("teacher@example.com")
         #self.current_user = Authentication.get_current_user()
         self.current_user_email = 'created@example.com'
         #self.load_tasks(current_user.email)
+
+        #hide admin tab if user is not admin
+        tab_widget = self.tabWidget
+        if User._current_user.user_type != "admin":
+            tab_widget.removeTab(6)
+
+        self.display_announcements()
+
+        self.show_information()
         
         self.load_tasks(self.current_user_email)
         #initial values of task create form
@@ -37,10 +46,51 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
-        self.update_lessons.clicked.connect(self.refresh_lesson)
-        self.update_mentoring.clicked.connect(self.refresh_mentor)
-        #self.show_Lesson_Attendance()
-        #self.show_Mentor_Attendance()
+        self.create_announcement_button.clicked.connect(self.create_announcement)
+
+        #self.announcement_to_delete_combobox.clicked.connect(self.delete_announcement)
+
+    def show_information(self):
+        user = User._current_user
+        self.teacher_profil_name_edit.setText(user.name)
+        self.teahcer_profil_surname_edit.setText(user.surname)
+        self.teacher_profil_birth_edit.setText(user.birthdate)
+        self.teacher_profil_mail_edit.setText(user.email)
+        self.teacher_profil_city_edit.setText(user.city)
+        self.teacher_profil_tel_edit.setText(user.phone_number)
+
+    def delete_announcement(self):
+        announcement = self.announcement_to_delete_combobox.currentText()
+        User.delete_announcement(announcement,)
+        pass
+
+    def create_announcement(self):
+        text = self.announcement_lineEdit.text()
+        email = User._current_user.email
+        if text != "":
+            User.create_announcement(text,email)
+            self.display_announcements()
+        else:
+            self.showUpdateAlert(f"Announcement text cannot be empty!")
+        
+        
+    def display_announcements(self):
+        # Get announcements
+        announcements = User.get_announcements()
+
+        if announcements is None or not announcements:
+            print("No announcement found.")
+            formatted_announcements = "No announcement"
+        else:
+            # Format announcements with gaps
+            formatted_announcements = "<hr>".join(
+        f"<p style='font-size:14pt;'>{announcement['announcement']}</p>"
+        f"<p style='font-size:12pt; font-style:italic;'>Announcement by {announcement['created_by']} ({announcement['timestamp']})</p>"
+        for announcement in announcements
+    )
+
+        # Set the formatted text in the QTextBrowser
+        self.announcement_textbrowser.setHtml(formatted_announcements)
 
     def open_create_lesson(self):
 
