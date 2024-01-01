@@ -1,6 +1,6 @@
-import csv
 import sys
-sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
+import os
+sys.path.append(os.getcwd())
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -34,13 +34,13 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.show_Lesson_Schedule()
         self.show_Mentor_Schedule()
-        self.show_Lesson_Attendance()
-        self.show_Mentor_Attendance()
+
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
         self.update_lessons.clicked.connect(self.refresh_lesson)
         self.update_mentoring.clicked.connect(self.refresh_mentor)
-
+        #self.show_Lesson_Attendance()
+        #self.show_Mentor_Attendance()
 
     def open_create_lesson(self):
 
@@ -205,7 +205,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Mentor_Attendance(self):
 
-        teacher_mentor_attendance = self.findChild(QTableWidget, 'teacher_attendance_mentor')
+        teacher_mentor_attendance = self.findChild(QTableWidget, 'tableWidget')
         table = User.get_Mentor_Attendance()
         layout = QVBoxLayout()
         layout.addWidget(table)        

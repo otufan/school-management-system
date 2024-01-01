@@ -1,5 +1,6 @@
 import sys
-sys.path.append("C:/Users/omert/OneDrive/Desktop/Pyhton HM/school-management-system")
+import os
+sys.path.append(os.getcwd())
 from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *

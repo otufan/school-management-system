@@ -986,12 +986,12 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QTableWidget" name="teacher_attendance_mentor">
+     <widget class="QTableWidget" name="tableWidget">
       <property name="geometry">
        <rect>
-        <x>540</x>
+        <x>560</x>
         <y>90</y>
-        <width>451</width>
+        <width>401</width>
         <height>511</height>
        </rect>
       </property>
