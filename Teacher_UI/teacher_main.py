@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append(os.getcwd())
+sys.path.append('C:/Users/MainUser/Documents/GitHub/school-management-system/Teacher_UI')
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
