@@ -1,8 +1,8 @@
-import sys
-sys.path.append('C:/Users/MainUser/Documents/GitHub/school-management-system')
+import sys,os
+sys.path.append(os.getcwd())
 import re
 import json
-import pandas as pd
+import time
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets,QtCore
@@ -118,26 +118,42 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
                 #self.ui_main_3_window.statusBar().showMessage("Invalid email or password!", 2000)
 
     def open_main_window(self, user_type):
+        self.ui_main_3 = None
         if user_type == 'admin':
             # Open Admin account in Teacher UI
-            self.ui_main_3_window = QtWidgets.QMainWindow()
-            self.ui_main_3 = Ui_MainWindow_6()
+            from Teacher_UI.teacher_main import Main_Window as Ui_MainWindow_Admin
+            self.ui_main_3 = Ui_MainWindow_Admin()
             self.ui_main_3.setupUi(self.ui_main_3_window)
-            self.ui_main_3_window.show()
-            self.ui_main_3_window.resize(440,400)
+             
+            #self.ui_main_3_window = QtWidgets.QMainWindow()
+            #self.ui_main_3 = Ui_MainWindow_6()
+            #self.ui_main_3.setupUi(self.ui_main_3_window)
+            #self.ui_main_3_window.show()
+            #self.ui_main_3_window.resize(800,800)
+            
         elif user_type == 'teacher':
             # Open Teacher UI
-            self.ui_main_3_window = QtWidgets.QMainWindow()
-            self.ui_main_3 = Ui_MainWindow_6()
+            from Teacher_UI.teacher_main import Main_Window as Ui_MainWindow_Teacher
+            self.ui_main_3 = Ui_MainWindow_Teacher()
             self.ui_main_3.setupUi(self.ui_main_3_window)
-            self.ui_main_3_window.show()
-            self.ui_main_3_window.resize(440,400)
+           
+            
+            #self.ui_main_3_window = QtWidgets.QMainWindow()
+            #self.ui_main_3 = Ui_MainWindow_6()
+            #self.ui_main_3.setupUi(self.ui_main_3_window)
+            #self.ui_main_3_window.show()
+            #self.ui_main_3_window.resize(800,800)
+            
         elif user_type == 'student':
-            self.ui_main_3_window = QtWidgets.QMainWindow()
-            self.ui_main_3 = Ui_MainWindow_5()
+            from Student_UI.student_main import Main_Window as Ui_MainWindow_Student
+            self.ui_main_3 = Ui_MainWindow_Student()
             self.ui_main_3.setupUi(self.ui_main_3_window)
-            self.ui_main_3_window.show()
-            self.ui_main_3_window.resize(440,400)
+            #self.ui_main_3_window = QtWidgets.QMainWindow()
+            #self.ui_main_3 = Ui_MainWindow_5()
+            #self.ui_main_3.setupUi(self.ui_main_3_window)
+            #self.ui_main_3_window.show()
+            #self.ui_main_3_window.resize(800,800)
+         
         else:
             print("Unknown user type!")
 

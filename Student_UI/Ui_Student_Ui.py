@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/onur/Documents/GitHub/school-management-system/Student_UI/Student_Ui.ui'
+# Form implementation generated from reading ui file 'c:\Users\MainUser\Documents\GitHub\Sema\school-management-system\Student_UI\Student_Ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #

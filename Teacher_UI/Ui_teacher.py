@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\omert\OneDrive\Desktop\Pyhton HM\school-management-system\Teacher_UI\teacher.ui'
+# Form implementation generated from reading ui file 'c:\Users\MainUser\Documents\GitHub\Sema\school-management-system\Teacher_UI\teacher.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #

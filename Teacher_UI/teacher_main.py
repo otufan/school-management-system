@@ -1,10 +1,10 @@
 import sys
 import os
-sys.path.append('C:/Users/MainUser/Documents/GitHub/school-management-system/Teacher_UI')
+sys.path.append(os.getcwd())
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from Ui_teacher import *
+from Teacher_UI.Ui_teacher import *
 from Classes.task import Task
 from Classes.user import *
 from Teacher_UI.CreateLesson import *
