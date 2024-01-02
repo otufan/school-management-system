@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/onur/Documents/GitHub/school-management-system/Student_UI/Student_Ui.ui'
+# Form implementation generated from reading ui file 'c:\Users\omert\OneDrive\Desktop\Pyhton HM\school-management-system\Student_UI\Student_Ui.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -221,6 +221,12 @@ class Ui_MainWindow(object):
         self.student_plan_mentor_list.setObjectName("student_plan_mentor_list")
         self.student_plan_mentor_list.setColumnCount(0)
         self.student_plan_mentor_list.setRowCount(0)
+        self.lesson_attendance = QtWidgets.QPushButton(self.student_plan)
+        self.lesson_attendance.setGeometry(QtCore.QRect(200, 610, 131, 28))
+        self.lesson_attendance.setObjectName("lesson_attendance")
+        self.mentor_attendance = QtWidgets.QPushButton(self.student_plan)
+        self.mentor_attendance.setGeometry(QtCore.QRect(660, 610, 151, 28))
+        self.mentor_attendance.setObjectName("mentor_attendance")
         self.tabWidget.addTab(self.student_plan, "")
         self.student_to_do = QtWidgets.QWidget()
         self.student_to_do.setObjectName("student_to_do")
@@ -311,7 +317,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.student_dance, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 24))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
@@ -319,7 +325,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -338,6 +344,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.student_profile), _translate("MainWindow", "Profile"))
         self.label_plan_lesson.setText(_translate("MainWindow", "Lesson Plan"))
         self.label_plan_mentor.setText(_translate("MainWindow", "Mentor Meeting Plan"))
+        self.lesson_attendance.setText(_translate("MainWindow", "Lesson Attendance"))
+        self.mentor_attendance.setText(_translate("MainWindow", "Mentoring Attendance"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.student_plan), _translate("MainWindow", "Lesson / Mentor Plan"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.student_to_do), _translate("MainWindow", "To do List"))
         self.label_lesson_status.setText(_translate("MainWindow", "Lesson Attendance Status"))

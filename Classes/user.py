@@ -209,6 +209,68 @@ class User():
         return cls.table_lesson
     
     @classmethod
+    def get_Lesson_Attendance_Student(cls, email):
+        if cls.table_lesson is None: 
+            cls.table_lesson = QTableWidget()
+            cls.table_lesson.setColumnCount(5) 
+
+        try:
+            with open(cls.FILE_ATT_LESSON, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_lesson.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1 and row[1] == email: 
+                        cls.table_lesson.insertRow(row_number)
+                        lesson_name, student_email, name, surname, attendance_status = row
+
+                        cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(name))
+                        cls.table_lesson.setItem(row_number, 1, QTableWidgetItem(surname))
+                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(student_email))
+                        cls.table_lesson.setItem(row_number, 3, QTableWidgetItem(lesson_name))
+                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(attendance_status))
+
+                        row_number += 1
+                        print(f"Row {row_number}: {name}, {surname}, {student_email}, {lesson_name}, {attendance_status}")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        return cls.table_lesson
+    
+    @classmethod
+    def get_Mentor_Attendance_Student(cls, email):
+        if cls.table_lesson is None: 
+            cls.table_lesson = QTableWidget()
+            cls.table_lesson.setColumnCount(5) 
+
+        try:
+            with open(cls.FILE_ATT_MENTOR, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_lesson.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1 and row[1] == email: 
+                        cls.table_lesson.insertRow(row_number)
+                        mentoring_name, student_email, name, surname, attendance_status = row
+
+                        cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(name))
+                        cls.table_lesson.setItem(row_number, 1, QTableWidgetItem(surname))
+                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(student_email))
+                        cls.table_lesson.setItem(row_number, 3, QTableWidgetItem(mentoring_name))
+                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(attendance_status))
+
+                        row_number += 1
+                        print(f"Row {row_number}: {name}, {surname}, {student_email}, {mentoring_name}, {attendance_status}")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        return cls.table_lesson
+    
+    @classmethod
     def get_Mentor_Attendance(cls):
         if cls.table_mentoring is None: 
             cls.table_mentoring = QTableWidget()

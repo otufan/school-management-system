@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from Student_UI.Ui_Student_Ui import *
 from Classes.task import Task
 from Classes.user import User
+from Student_UI.LessonAttendance import *
+from Student_UI.MentorAttendance import *
 
 #announcements_textBrowser
 
@@ -25,6 +27,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.show_Lesson_Schedule()
         self.show_Mentor_Schedule()
         self.display_announcements()
+        self.lesson_attendance.clicked.connect(self.show_lesson_attendance_page)
+        self.mentor_attendance.clicked.connect(self.show_mentor_attendance_page)
 
     def display_announcements(self):
         # Get announcements
@@ -102,6 +106,16 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         layout.addWidget(table)        
         student_plan_tab.setLayout(layout)
 
+    def show_lesson_attendance_page(self):
+
+        self.open_lesson_attendance_window = LessonAttendance()
+        self.open_lesson_attendance_window.show()
+
+    def show_mentor_attendance_page(self):
+
+        self.open_lesson_attendance_show = MentorAttendance()
+        self.open_lesson_attendance_show.show()
+
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         if index.column() == 4:
@@ -132,6 +146,7 @@ class ComboBoxDelegate(QStyledItemDelegate):
     def showUpdateAlert(self, task_name, new_status):
         message = f"Task:  {task_name} status is updated to: {new_status}"
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
