@@ -44,9 +44,14 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.show_Lesson_Schedule()
         self.show_Mentor_Schedule()
+        self.show_Mentor_Attendance()
+        self.show_Lesson_Attendance()
+
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+        self.update_lessons.clicked.connect(self.refresh_lesson)
+        self.update_mentoring.clicked.connect(self.refresh_mentor)
         self.create_announcement_button.clicked.connect(self.create_announcement)
 
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
@@ -140,14 +145,14 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def refresh_lesson(self):
 
-        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson_list')
-        table = User.get_LessonSchedule()  # Bu metodun, QTableWidget ile uyumlu bir QTableWidget döndürdüğünü varsayıyorum
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson')
+        table = User.get_LessonSchedule() 
 
-        # Eğer tablo varsa, mevcut tablonun içeriğini güncelle
+       
         if isinstance(table, QTableWidget):
-            teacher_plan_tab.clear()  # Mevcut tablonun içeriğini temizle
+            teacher_plan_tab.clear()  
 
-            # Yeni tabloyu mevcut tabloya kopyala
+           
             teacher_plan_tab.setColumnCount(table.columnCount())
             teacher_plan_tab.setRowCount(table.rowCount())
 
@@ -160,7 +165,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def refresh_mentor(self):
 
-        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring_list')
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring')
         teacher_plan_tab.clearContents()
         self.show_Mentor_Schedule()
 
@@ -291,7 +296,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Mentor_Attendance(self):
 
-        teacher_mentor_attendance = self.findChild(QTableWidget, 'tableWidget')
+        teacher_mentor_attendance = self.findChild(QTableWidget, 'teacher_attendance_mentor')
         table = User.get_Mentor_Attendance()
         layout = QVBoxLayout()
         layout.addWidget(table)        

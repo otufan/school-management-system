@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '/Users/onur/Documents/GitHub/school-management-system/Teacher_UI/teacher.ui'
+# Form implementation generated from reading ui file 'c:\Users\omert\OneDrive\Desktop\Pyhton HM\school-management-system\Teacher_UI\teacher.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
         self.announcement_textbrowser.setGeometry(QtCore.QRect(20, 120, 651, 192))
         self.announcement_textbrowser.setObjectName("announcement_textbrowser")
         self.formLayoutWidget_2 = QtWidgets.QWidget(self.teacher_main)
-        self.formLayoutWidget_2.setGeometry(QtCore.QRect(20, 330, 642, 80))
+        self.formLayoutWidget_2.setGeometry(QtCore.QRect(20, 330, 642, 87))
         self.formLayoutWidget_2.setObjectName("formLayoutWidget_2")
         self.formLayout_2 = QtWidgets.QFormLayout(self.formLayoutWidget_2)
         self.formLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -343,11 +343,11 @@ class Ui_MainWindow(object):
         self.teacher_attendance_lesson.setObjectName("teacher_attendance_lesson")
         self.teacher_attendance_lesson.setColumnCount(0)
         self.teacher_attendance_lesson.setRowCount(0)
-        self.tableWidget = QtWidgets.QTableWidget(self.teacher_attendance)
-        self.tableWidget.setGeometry(QtCore.QRect(560, 90, 401, 511))
-        self.tableWidget.setObjectName("tableWidget")
-        self.tableWidget.setColumnCount(0)
-        self.tableWidget.setRowCount(0)
+        self.teacher_attendance_mentor = QtWidgets.QTableWidget(self.teacher_attendance)
+        self.teacher_attendance_mentor.setGeometry(QtCore.QRect(560, 90, 401, 511))
+        self.teacher_attendance_mentor.setObjectName("teacher_attendance_mentor")
+        self.teacher_attendance_mentor.setColumnCount(0)
+        self.teacher_attendance_mentor.setRowCount(0)
         self.tabWidget.addTab(self.teacher_attendance, "")
         self.student_dance = QtWidgets.QWidget()
         self.student_dance.setObjectName("student_dance")
@@ -499,7 +499,7 @@ class Ui_MainWindow(object):
         self.tabWidget.addTab(self.admin_page, "")
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 26))
         self.menubar.setObjectName("menubar")
         MainWindow.setMenuBar(self.menubar)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)

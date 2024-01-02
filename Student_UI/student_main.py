@@ -22,8 +22,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         #current_user = Authentication.get_current_user()
         #self.load_tasks(current_user.email)
         self.load_tasks('assigned@example.com')
-        self.show_Lesson_Schedule
-        self.show_Mentor_Schedule
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
         self.display_announcements()
 
     def display_announcements(self):
