@@ -5,7 +5,7 @@ from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
-from Ui_Student_Ui import *
+from Student_UI.Ui_Student_Ui import *
 from Classes.task import Task
 from Classes.user import User
 
