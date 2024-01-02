@@ -50,6 +50,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         #signal to create task button
         self.create_task_button.clicked.connect(self.create_task)
 
+        self.create_announcement_button.clicked.connect(self.create_announcement)
+
         self.show_Lesson_Schedule()
         self.show_Mentor_Schedule()
 
@@ -117,17 +119,22 @@ class Main_Window(QMainWindow, Ui_MainWindow):
             else:
                 self.showUpdateAlert(f"{message}")
         
+    def create_Teacher(self,name, surname, email, birthday, city,phone_number, password):
+        if not User.email_exists(email):
+            User.create_user(name, surname, email, birthday, city, phone_number, password, user_type="teacher")
+            print("User created successfully.")
         else:
-            self.showUpdateAlert(f"Announcement text cannot be empty!")
-        
-        
-    def display_announcements(self):
-        # Get announcements
-        announcements = User.get_announcements()
+            QMessageBox.warning(None, 'Warning', f'The email {email} already exists.', QMessageBox.Ok)
 
-        if announcements is None or not announcements:
-            print("No announcement found.")
-            formatted_announcements = "No announcement"
+    def is_valid_email(self, email):
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(email_regex, email)
+    
+    def is_valid_password(self,password):
+        password = self.teacher_password_admin.text()
+
+        if len(password) <= 8 and any(c.isalpha() for c in password) and any(c.isdigit() for c in password) and any(c.isascii() and not c.isalnum() for c in password):
+            return True
         else:
             # Format announcements with gaps
             formatted_announcements = "<hr>".join(
