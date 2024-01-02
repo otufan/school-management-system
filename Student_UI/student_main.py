@@ -20,7 +20,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Student Page")
 
-        User.set_currentuser("student@example.com")
+        User.set_currentuser("ada@ya.com")
         #current_user = Authentication.get_current_user()
         #self.load_tasks(current_user.email)
         self.load_tasks('assigned@example.com')
@@ -108,12 +108,12 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_lesson_attendance_page(self):
 
-        self.open_lesson_attendance_window = LessonAttendance()
+        self.open_lesson_attendance_window = LessonAttendance(User._current_user.email)
         self.open_lesson_attendance_window.show()
 
     def show_mentor_attendance_page(self):
 
-        self.open_lesson_attendance_show = MentorAttendance()
+        self.open_lesson_attendance_show = MentorAttendance(User._current_user.email)
         self.open_lesson_attendance_show.show()
 
 class ComboBoxDelegate(QStyledItemDelegate):

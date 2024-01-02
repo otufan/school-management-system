@@ -9,9 +9,9 @@ from PyQt5.QtGui import *
 
 
 class LessonAttendance(QMainWindow):
-    def __init__(self):
+    def __init__(self, email):
         super().__init__()
-
+        self.email = email
         self.setWindowTitle("Lesson Attendance Window")
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -24,7 +24,7 @@ class LessonAttendance(QMainWindow):
         self.show_Lesson_Attendance()
 
     def show_Lesson_Attendance(self):
-        table_lesson = User.get_Lesson_Attendance_Student("ada@yani.com")
+        table_lesson = User.get_Lesson_Attendance_Student(self.email)
         layout = QVBoxLayout()
         layout.addWidget(table_lesson)
         self.table_view.setLayout(layout)
