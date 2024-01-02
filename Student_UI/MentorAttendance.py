@@ -8,9 +8,9 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtGui import *
 
 class MentorAttendance(QMainWindow):
-    def __init__(self):
+    def __init__(self, email):
         super().__init__()
-
+        self.email = email
         self.setWindowTitle("Mentor Attendance Window")
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
@@ -23,7 +23,7 @@ class MentorAttendance(QMainWindow):
         self.show_Mentor_Attendance()
 
     def show_Mentor_Attendance(self):
-        table_lesson = User.get_Mentor_Attendance_Student("ada@demirci.com")
+        table_lesson = User.get_Mentor_Attendance_Student(self.email)
         layout = QVBoxLayout()
         layout.addWidget(table_lesson)
         self.table_view.setLayout(layout)
