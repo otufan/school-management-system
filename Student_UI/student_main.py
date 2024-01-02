@@ -1,5 +1,8 @@
-import sys
-sys.path.append("C:/Users/umut/Documents/GitHub/school system/school-management-system")
+
+import sys, os
+sys.path.append(os.getcwd())
+
+
 from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
@@ -7,7 +10,8 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from Ui_Student_Ui import *
 from Classes.task import Task
 from Classes.user import User
-#from Classes.authentication import Authentication
+
+#announcements_textBrowser
 
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -25,6 +29,24 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.load_tasks('assigned@example.com')
         self.show_Lesson_Schedule
         self.show_Mentor_Schedule
+        self.display_announcements()
+
+    def display_announcements(self):
+        # Get announcements
+        announcements = User.get_announcements()
+
+        if announcements is None or not announcements:
+            print("No announcement found.")
+            formatted_announcements = "No announcement"
+        else:
+            # Format announcements with gaps
+            formatted_announcements = "<hr>".join(
+        f"<p style='font-size:14pt;'>{announcement['announcement']}</p>"
+        f"<p style='font-size:12pt; font-style:italic;'>Announcement by {announcement['created_by']} ({announcement['timestamp']})</p>"
+        for announcement in announcements
+    )
+        # Set the formatted text in the QTextBrowser
+        self.announcements_textBrowser.setHtml(formatted_announcements)
 
         self.show_information()
 
