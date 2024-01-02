@@ -10,6 +10,8 @@ class User():
     ANNOUNCEMENT_FILE_PATH = "data/announcements.txt"
 
     _current_user= None
+    FILE_LESSON = "data/lessons.csv"
+    FILE_MENTOR = "data/mentors.csv"
     FILE_ATT_LESSON = "data/lesson_attendance.csv"
     FILE_ATT_MENTOR = "data/mentor_attendance.csv"
     table_lesson = None
@@ -196,7 +198,7 @@ class User():
                         cls.table_lesson.insertRow(row_number)
                         lesson_name = row[1]
                         cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(lesson_name)) 
-                        button = QPushButton("List for Lessons")
+                        button = QPushButton("List")
                         button.clicked.connect(lambda _, lesson=lesson_name: cls.open_students_page_lesson(lesson))
                         cls.table_lesson.setCellWidget(row_number, 1, button) 
                         row_number += 1
@@ -223,15 +225,15 @@ class User():
                         cls.table_mentoring.insertRow(row_number)
                         mentor_name = row[1]
                         cls.table_mentoring.setItem(row_number, 0, QTableWidgetItem(mentor_name)) 
-                        button = QPushButton("List for Mentorings")
+                        button = QPushButton("List")
                         button.clicked.connect(lambda _, mentor=mentor_name: cls.open_students_page_mentor(mentor))
                         cls.table_mentoring.setCellWidget(row_number, 1, button) 
                         row_number += 1
             
         except Exception as e:
-            print(f"Error in getting mentoring: {e}")
+            print(f"Error in getting lesson: {e}")
 
-        return cls.table_lesson
+        return cls.table_mentoring
     
     @classmethod
     def open_students_page_lesson(cls, item):

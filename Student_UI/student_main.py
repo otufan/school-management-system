@@ -28,6 +28,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.load_tasks(User._current_user.email)
         self.show_Lesson_Schedule
         self.show_Mentor_Schedule
+
         self.display_announcements()
         self.show_information()
 
