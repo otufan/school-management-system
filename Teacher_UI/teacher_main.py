@@ -1,10 +1,10 @@
 import sys
 import os
-sys.path.append('C:/Users/MainUser/Documents/GitHub/school-management-system/Teacher_UI')
+sys.path.append(os.getcwd())
 
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
-from Ui_teacher import *
+from Teacher_UI.Ui_teacher import *
 from Classes.task import Task
 from Classes.user import *
 from Teacher_UI.CreateLesson import *
@@ -21,12 +21,16 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         super(Main_Window,self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Teacher Page")
+        print("Teacher window is opened")
 
-        User.set_currentuser("admin@example.com")
-        #self.current_user = Authentication.get_current_user()
-        self.current_user_email = 'created@example.com'
-        #self.load_tasks(current_user.email)
+        #User.set_currentuser("admin@example.com")
+        self.current_user_email = User._current_user.email
 
+        current_date_time = QDateTime.currentDateTime()
+        formatted_date = current_date_time.toString("dd-MM-yyyy")
+        self.teacher_main_name.setText(f"Welcome {User._current_user.name}")
+        self.teacher_main_date.setText(f"{formatted_date}")
+        
         #hide admin tab if user is not admin
         tab_widget = self.tabWidget
         if User._current_user.user_type != "admin":
@@ -51,26 +55,25 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+
         self.lesson_att_insert.clicked.connect(self.show_lesson_attendance_page)
         self.mentor_att_insert.clicked.connect(self.show_mentor_attendance_page)
         self.lesson_att_show.clicked.connect(self.show_lesson_attendance_show)
         self.mentor_att_show.clicked.connect(self.show_mentor_attendance_show)
-
+        
         self.create_announcement_button.clicked.connect(self.create_announcement)
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
-        #self.teacher_profil_city_edit.textChanged.connect(self.on_city_changed)
-        #self.teacher_profil_tel_edit.textChanged.connect(self.on_tel_changed)
+        self.update_information_button.clicked.connect(self.update_information)
 
-    def on_city_changed(self):
+        print("teacher init is completed")
+        print("QTextBrowser Size:", self.announcement_textbrowser.toPlainText())
+
+    def update_information(self):
+        new_tel = self.teacher_profil_tel_edit.toPlainText()
         new_city = self.teacher_profil_city_edit.toPlainText()
-        User.update_user_information(User._current_user.email, city=new_city)
-        self.showUpdateAlert("City is updated")
-
-    def on_tel_changed(self):
-        new_tel = self.teacher_profil_tel_edit.text()
-        updated_info = {"phone_number": new_tel }
+        updated_info = {"phone_number": new_tel, "city": new_city  }
         User.update_user_information(User._current_user.email, **updated_info)
-        self.showUpdateAlert("Phone number is updated")
+        self.showUpdateAlert("Information is updated")
 
     def display_announcement_to_delete(self):
         user = User._current_user
@@ -134,7 +137,13 @@ class Main_Window(QMainWindow, Ui_MainWindow):
     )
 
         # Set the formatted text in the QTextBrowser
-        self.announcement_textbrowser.setHtml(formatted_announcements)
+        try:
+            # Set the formatted text in the QTextBrowser
+            self.announcement_textbrowser.setHtml(formatted_announcements)
+        except Exception as e:
+            print(f"Exception during setHtml: {e}")
+        print("Announcements are loaded")
+        print(formatted_announcements)
 
     def open_create_lesson(self):
 

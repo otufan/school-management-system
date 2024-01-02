@@ -188,6 +188,9 @@ class Ui_MainWindow(object):
         self.student_profil_tel_edit.setReadOnly(False)
         self.student_profil_tel_edit.setOverwriteMode(False)
         self.student_profil_tel_edit.setObjectName("student_profil_tel_edit")
+        self.update_information_Button = QtWidgets.QPushButton(self.student_profile)
+        self.update_information_Button.setGeometry(QtCore.QRect(410, 410, 161, 32))
+        self.update_information_Button.setObjectName("update_information_Button")
         self.tabWidget.addTab(self.student_profile, "")
         self.student_plan = QtWidgets.QWidget()
         self.student_plan.setObjectName("student_plan")
@@ -319,7 +322,7 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(1)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -335,6 +338,7 @@ class Ui_MainWindow(object):
         self.label_profile_mail.setText(_translate("MainWindow", "E-Mail :"))
         self.label_profile_city.setText(_translate("MainWindow", "City :"))
         self.label_profile_tel.setText(_translate("MainWindow", "Tel :"))
+        self.update_information_Button.setText(_translate("MainWindow", "Update Information"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.student_profile), _translate("MainWindow", "Profile"))
         self.label_plan_lesson.setText(_translate("MainWindow", "Lesson Plan"))
         self.label_plan_mentor.setText(_translate("MainWindow", "Mentor Meeting Plan"))
