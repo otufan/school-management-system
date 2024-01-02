@@ -57,6 +57,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+        self.update_lessons.clicked.connect(self.refresh_lesson)
+        self.update_mentoring.clicked.connect(self.refresh_mentor)
+
 
         self.lesson_att_insert.clicked.connect(self.show_lesson_attendance_page)
         self.mentor_att_insert.clicked.connect(self.show_mentor_attendance_page)
@@ -184,7 +187,6 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson')
         table = User.get_LessonSchedule() 
-
        
         if isinstance(table, QTableWidget):
             teacher_plan_tab.clear()  

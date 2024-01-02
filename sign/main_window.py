@@ -2,7 +2,6 @@ import sys, os
 sys.path.append(os.getcwd())
 import re
 import json
-import pandas as pd
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets,QtCore
