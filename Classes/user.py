@@ -102,7 +102,7 @@ class User():
         except Exception as e:
             print(f"Error reading user data from file: {e}")
         return None
-
+    
     @classmethod
     def set_currentuser(cls, email):
         try:
