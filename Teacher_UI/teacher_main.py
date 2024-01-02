@@ -9,6 +9,8 @@ from Classes.task import Task
 from Classes.user import *
 from Teacher_UI.CreateLesson import *
 from Teacher_UI.CreateMentor import *
+from Teacher_UI.LessonAttendance import *
+from Teacher_UI.MentorAttendance import *
 
 class Main_Window(QMainWindow, Ui_MainWindow):
 
@@ -47,6 +49,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+        self.lesson_att_insert.clicked.connect(self.show_lesson_attendance_page)
+        self.mentor_att_insert.clicked.connect(self.show_mentor_attendance_page)  
+        
         self.create_announcement_button.clicked.connect(self.create_announcement)
 
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
@@ -138,16 +143,26 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.open_create_mentor_window = CreateMentor()
         self.open_create_mentor_window.show()
 
+    def show_lesson_attendance_page(self):
+
+        self.open_lesson_attendance_window = LessonAttendance()
+        self.open_lesson_attendance_window.show()
+
+    def show_mentor_attendance_page(self):
+
+        self.open_lesson_attendance_window = MentorAttendance()
+        self.open_lesson_attendance_window.show()
+
     def refresh_lesson(self):
 
-        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson_list')
-        table = User.get_LessonSchedule()  # Bu metodun, QTableWidget ile uyumlu bir QTableWidget döndürdüğünü varsayıyorum
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson')
+        table = User.get_LessonSchedule() 
 
-        # Eğer tablo varsa, mevcut tablonun içeriğini güncelle
+       
         if isinstance(table, QTableWidget):
-            teacher_plan_tab.clear()  # Mevcut tablonun içeriğini temizle
+            teacher_plan_tab.clear()  
 
-            # Yeni tabloyu mevcut tabloya kopyala
+           
             teacher_plan_tab.setColumnCount(table.columnCount())
             teacher_plan_tab.setRowCount(table.rowCount())
 
@@ -160,10 +175,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def refresh_mentor(self):
 
-        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring_list')
+        teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_mentoring')
         teacher_plan_tab.clearContents()
-        self.show_Mentor_Schedule()
-
+        self.show_Mentor_Schedule()   
 
     def create_task(self):
         task_name = self.task_name_input.text()
@@ -283,15 +297,15 @@ class Main_Window(QMainWindow, Ui_MainWindow):
   
     def show_Lesson_Attendance(self):
 
-        teacher_lesson_attendance = self.findChild(QTableWidget, 'teacher_attendance_lesson')
+        teacher_lesson_attendance = self.findChild(QTableView, 'teacher_attendance_lesson')
         table = User.get_Lesson_Attendance()
         layout = QVBoxLayout()
-        layout.addWidget(table)        
+        layout.addWidget(table)
         teacher_lesson_attendance.setLayout(layout)
 
     def show_Mentor_Attendance(self):
 
-        teacher_mentor_attendance = self.findChild(QTableWidget, 'tableWidget')
+        teacher_mentor_attendance = self.findChild(QTableView, 'teacher_attendance_mentor')
         table = User.get_Mentor_Attendance()
         layout = QVBoxLayout()
         layout.addWidget(table)        
