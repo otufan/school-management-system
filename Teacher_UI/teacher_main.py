@@ -11,6 +11,8 @@ from Teacher_UI.CreateLesson import *
 from Teacher_UI.CreateMentor import *
 from Teacher_UI.LessonAttendance import *
 from Teacher_UI.MentorAttendance import *
+from Teacher_UI.ShowAttendanceLesson import *
+from Teacher_UI.ShowAttendanceMentor import *
 
 class Main_Window(QMainWindow, Ui_MainWindow):
 
@@ -50,10 +52,11 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
         self.lesson_att_insert.clicked.connect(self.show_lesson_attendance_page)
-        self.mentor_att_insert.clicked.connect(self.show_mentor_attendance_page)  
-        
-        self.create_announcement_button.clicked.connect(self.create_announcement)
+        self.mentor_att_insert.clicked.connect(self.show_mentor_attendance_page)
+        self.lesson_att_show.clicked.connect(self.show_lesson_attendance_show)
+        self.mentor_att_show.clicked.connect(self.show_mentor_attendance_show)
 
+        self.create_announcement_button.clicked.connect(self.create_announcement)
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
         #self.teacher_profil_city_edit.textChanged.connect(self.on_city_changed)
         #self.teacher_profil_tel_edit.textChanged.connect(self.on_tel_changed)
@@ -148,11 +151,19 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.open_lesson_attendance_window = LessonAttendance()
         self.open_lesson_attendance_window.show()
 
+    def show_lesson_attendance_show(self):
+        self.open_lesson_attendance_show = ShowAttLesson()
+        self.open_lesson_attendance_show.show()
+
     def show_mentor_attendance_page(self):
 
-        self.open_lesson_attendance_window = MentorAttendance()
-        self.open_lesson_attendance_window.show()
+        self.open_mentor_attendance_window = MentorAttendance()
+        self.open_mentor_attendance_window.show()
 
+    def show_mentor_attendance_show(self):
+        self.open_mentor_attendance_show = ShowAttMentor()
+        self.open_mentor_attendance_show.show()
+    
     def refresh_lesson(self):
 
         teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson')
