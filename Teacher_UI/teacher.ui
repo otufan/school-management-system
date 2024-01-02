@@ -47,9 +47,7 @@ color: rgb(255, 255, 255);
 </string>
     </property>
     <property name="currentIndex">
-
-     <number>2</number>
-
+     <number>0</number>
     </property>
     <widget class="QWidget" name="teacher_main">
      <attribute name="title">
@@ -162,34 +160,7 @@ color: rgb(255, 255, 255);
        <string>Announcements</string>
       </property>
      </widget>
-     <widget class="QLabel" name="label_main_lesson">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>160</y>
-        <width>200</width>
-        <height>40</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>200</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
-      </property>
-      <property name="text">
-       <string>Next Lesson:</string>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label_main_mentor">
+     <widget class="QTextBrowser" name="announcement_textbrowser">
       <property name="geometry">
        <rect>
         <x>40</x>
@@ -219,10 +190,10 @@ color: rgb(255, 255, 255);
      <widget class="QTextEdit" name="teacher_main_lesson">
       <property name="geometry">
        <rect>
-        <x>250</x>
-        <y>150</y>
-        <width>350</width>
-        <height>50</height>
+        <x>20</x>
+        <y>330</y>
+        <width>642</width>
+        <height>87</height>
        </rect>
       </property>
       <property name="minimumSize">
@@ -696,6 +667,19 @@ p, li { white-space: pre-wrap; }
        <bool>false</bool>
       </property>
      </widget>
+     <widget class="QPushButton" name="update_information_button">
+      <property name="geometry">
+       <rect>
+        <x>430</x>
+        <y>410</y>
+        <width>151</width>
+        <height>32</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Update Information</string>
+      </property>
+     </widget>
     </widget>
     <widget class="QWidget" name="teacher_plan">
      <attribute name="title">
@@ -759,7 +743,7 @@ p, li { white-space: pre-wrap; }
        <string>Mentor Meeting Plan</string>
       </property>
      </widget>
-     <widget class="QTableWidget" name="teacher_plan_lesson_list">
+     <widget class="QTableWidget" name="teacher_plan_lesson">
       <property name="geometry">
        <rect>
         <x>30</x>
@@ -769,7 +753,7 @@ p, li { white-space: pre-wrap; }
        </rect>
       </property>
      </widget>
-     <widget class="QTableWidget" name="tableWidget">
+     <widget class="QTableWidget" name="teacher_plan_mentoring">
       <property name="geometry">
        <rect>
         <x>530</x>
@@ -784,12 +768,12 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>70</x>
         <y>600</y>
-        <width>93</width>
+        <width>131</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Lesson create</string>
+       <string>Lesson create/edit</string>
       </property>
      </widget>
      <widget class="QPushButton" name="create_mentor">
@@ -797,12 +781,38 @@ p, li { white-space: pre-wrap; }
        <rect>
         <x>540</x>
         <y>600</y>
-        <width>111</width>
+        <width>141</width>
         <height>28</height>
        </rect>
       </property>
       <property name="text">
-       <string>Mentoring create</string>
+       <string>Mentoring create/edit</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_lessons">
+      <property name="geometry">
+       <rect>
+        <x>230</x>
+        <y>600</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Lesson refresh</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="update_mentoring">
+      <property name="geometry">
+       <rect>
+        <x>710</x>
+        <y>600</y>
+        <width>121</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Mentoring refresh</string>
       </property>
      </widget>
     </widget>
@@ -917,25 +927,6 @@ p, li { white-space: pre-wrap; }
        <string>Lesson Attendance Status</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="teacher_attendance_lesson_list">
-      <property name="geometry">
-       <rect>
-        <x>40</x>
-        <y>90</y>
-        <width>450</width>
-        <height>500</height>
-       </rect>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
-      </property>
-     </widget>
      <widget class="QLabel" name="label_mentor_status">
       <property name="geometry">
        <rect>
@@ -971,23 +962,108 @@ p, li { white-space: pre-wrap; }
        <string>Mentor Meeting Attendance Status</string>
       </property>
      </widget>
-     <widget class="QTextEdit" name="teacher_attendance_mentor_list">
+     <widget class="QPushButton" name="lesson_att_insert">
       <property name="geometry">
        <rect>
-        <x>540</x>
-        <y>90</y>
-        <width>450</width>
-        <height>500</height>
+        <x>250</x>
+        <y>130</y>
+        <width>93</width>
+        <height>28</height>
        </rect>
       </property>
-      <property name="minimumSize">
-       <size>
-        <width>450</width>
-        <height>500</height>
-       </size>
+      <property name="text">
+       <string>Do attendance</string>
       </property>
-      <property name="styleSheet">
-       <string notr="true">color: rgb(238, 155, 0);</string>
+     </widget>
+     <widget class="QPushButton" name="lesson_att_show">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>200</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Show attendance</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="mentor_att_insert">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>120</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Do attendance</string>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="mentor_att_show">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>190</y>
+        <width>93</width>
+        <height>28</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Show attendance</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_2">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>130</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Insert attendance per Lesson</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_3">
+      <property name="geometry">
+       <rect>
+        <x>30</x>
+        <y>200</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Show attendance per Lesson</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_4">
+      <property name="geometry">
+       <rect>
+        <x>550</x>
+        <y>120</y>
+        <width>201</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Insert attendance per Mentoring</string>
+      </property>
+     </widget>
+     <widget class="QLabel" name="label_5">
+      <property name="geometry">
+       <rect>
+        <x>560</x>
+        <y>180</y>
+        <width>171</width>
+        <height>31</height>
+       </rect>
+      </property>
+      <property name="text">
+       <string>Show attendance per Mentoring</string>
       </property>
      </widget>
     </widget>
@@ -1362,6 +1438,36 @@ background-color: rgb(148, 210, 189);</string>
      </widget>
     </widget>
    </widget>
+   <widget class="QPushButton" name="teacher_singout_button">
+    <property name="geometry">
+     <rect>
+      <x>920</x>
+      <y>0</y>
+      <width>91</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>50</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>16</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(52, 44, 255);
+background-color: rgb(255, 253, 255)</string>
+    </property>
+    <property name="text">
+     <string>Sing Out</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
@@ -1369,7 +1475,7 @@ background-color: rgb(148, 210, 189);</string>
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>26</height>
+     <height>24</height>
     </rect>
    </property>
   </widget>
