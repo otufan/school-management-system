@@ -103,18 +103,6 @@ class User():
             print(f"Error reading user data from file: {e}")
         return None
 
-    @classmethod
-    def set_currentuser(cls, email):
-        try:
-            with open(cls.FILE_PATH, 'r') as file:
-                for line in file:
-                    user_data = json.loads(line)
-                    if user_data.get('email') == email:
-                        cls._current_user = cls(**user_data)
-                        return
-        except Exception as e:
-            print(f"Error setting current user: {e}")
-
 # Save the user information to the file
 # User.create_user(
 #     name="Student",

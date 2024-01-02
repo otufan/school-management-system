@@ -21,14 +21,39 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Student Page")
 
         User.set_currentuser("student@example.com")
-        #current_user = Authentication.get_current_user()
-        #self.load_tasks(current_user.email)
-        self.load_tasks('assigned@example.com')
-        self.show_Lesson_Schedule()
-        self.show_Mentor_Schedule()
+
+        current_date_time = QDateTime.currentDateTime()
+        formatted_date = current_date_time.toString("dd-MM-yyyy")
+        self.student_main_name.setText(f"Welcome {User._current_user.name}")
+        self.student_main_date.setText(f"{formatted_date}")
+
+        self.load_tasks(User._current_user.email)
+        self.show_Lesson_Schedule
+        self.show_Mentor_Schedule
+
         self.display_announcements()
         self.lesson_attendance.clicked.connect(self.show_lesson_attendance_page)
         self.mentor_attendance.clicked.connect(self.show_mentor_attendance_page)
+        self.show_information()
+
+        self.update_information_Button.clicked.connect(self.update_information)
+
+    def update_information(self):
+        new_tel = self.student_profil_tel_edit.toPlainText()
+        new_city = self.student_profil_city_edit.toPlainText()
+        updated_info = {"phone_number": new_tel, "city": new_city  }
+        User.update_user_information(User._current_user.email, **updated_info)
+        self.showUpdateAlert("Information is updated")
+
+    def show_information(self):
+        user = User._current_user
+        self.student_profil_name_edit.setText(user.name)
+        self.student_profil_surname_edit.setText(user.surname)
+        self.student_profil_birth_edit.setText(user.birthdate)
+        self.student_profil_mail_edit.setText(user.email)
+        self.student_profil_city_edit.setText(user.city)
+        self.student_profil_tel_edit.setText(user.phone_number)
+
 
     def display_announcements(self):
         # Get announcements
@@ -105,6 +130,10 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         layout = QVBoxLayout()
         layout.addWidget(table)        
         student_plan_tab.setLayout(layout)
+    
+    def showUpdateAlert(self, alert):
+        message = alert
+        QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
 
     def show_lesson_attendance_page(self):
 
