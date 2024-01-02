@@ -21,6 +21,13 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Student Page")
 
         User.set_currentuser("ada@ya.com")
+
+        #current_user = Authentication.get_current_user()
+        #self.load_tasks(current_user.email)
+        self.load_tasks('assigned@example.com')
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
+
         
 
         current_date_time = QDateTime.currentDateTime()
@@ -31,6 +38,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.load_tasks(User._current_user.email)
         self.show_Lesson_Schedule
         self.show_Mentor_Schedule
+
 
         self.display_announcements()
         self.lesson_attendance.clicked.connect(self.show_lesson_attendance_page)
