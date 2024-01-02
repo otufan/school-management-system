@@ -1,5 +1,5 @@
-import sys
-sys.path.append('C:/Users/MainUser/Documents/GitHub/school-management-system')
+import sys, os
+sys.path.append(os.getcwd())
 import re
 import json
 import pandas as pd
