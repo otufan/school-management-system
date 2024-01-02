@@ -933,7 +933,7 @@ color: rgb(255, 255, 255);
        <string>Do attendance</string>
       </property>
      </widget>
-     <widget class="QPushButton" name="show_att_insert">
+     <widget class="QPushButton" name="mentor_att_show">
       <property name="geometry">
        <rect>
         <x>830</x>
