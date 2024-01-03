@@ -8,8 +8,10 @@ from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from Student_UI.Ui_Student_Ui import *
 from Classes.task import Task
 from Classes.user import User
+from Student_UI.LessonAttendance import *
+from Student_UI.MentorAttendance import *
 
-
+#announcements_textBrowser
 
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -18,7 +20,15 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Student Page")
 
-        #User.set_currentuser("student@example.com")
+        User.set_currentuser("ada@ya.com")
+
+        #current_user = Authentication.get_current_user()
+        #self.load_tasks(current_user.email)
+        self.load_tasks('assigned@example.com')
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
+
+        
 
         current_date_time = QDateTime.currentDateTime()
         formatted_date = current_date_time.toString("dd-MM-yyyy")
@@ -26,10 +36,13 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.student_main_date.setText(f"{formatted_date}")
 
         self.load_tasks(User._current_user.email)
-        self.show_Lesson_Schedule()
-        self.show_Mentor_Schedule()
+        self.show_Lesson_Schedule
+        self.show_Mentor_Schedule
+
 
         self.display_announcements()
+        self.lesson_attendance.clicked.connect(self.show_lesson_attendance_page)
+        self.mentor_attendance.clicked.connect(self.show_mentor_attendance_page)
         self.show_information()
 
         self.update_information_Button.clicked.connect(self.update_information)
@@ -49,6 +62,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.student_profil_mail_edit.setText(user.email)
         self.student_profil_city_edit.setText(user.city)
         self.student_profil_tel_edit.setText(user.phone_number)
+
 
     def display_announcements(self):
         # Get announcements
@@ -130,6 +144,16 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         message = alert
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
 
+    def show_lesson_attendance_page(self):
+
+        self.open_lesson_attendance_window = LessonAttendance(User._current_user.email)
+        self.open_lesson_attendance_window.show()
+
+    def show_mentor_attendance_page(self):
+
+        self.open_lesson_attendance_show = MentorAttendance(User._current_user.email)
+        self.open_lesson_attendance_show.show()
+
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
         if index.column() == 4:
@@ -160,6 +184,7 @@ class ComboBoxDelegate(QStyledItemDelegate):
     def showUpdateAlert(self, task_name, new_status):
         message = f"Task:  {task_name} status is updated to: {new_status}"
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

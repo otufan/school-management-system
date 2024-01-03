@@ -1,5 +1,6 @@
 import sys
 import os
+import re
 sys.path.append(os.getcwd())
 
 from PyQt5.QtCore import *
@@ -13,7 +14,6 @@ from Teacher_UI.LessonAttendance import *
 from Teacher_UI.MentorAttendance import *
 from Teacher_UI.ShowAttendanceLesson import *
 from Teacher_UI.ShowAttendanceMentor import *
-from sign.Ui_login_screen import *
 
 class Main_Window(QMainWindow, Ui_MainWindow):
 
@@ -22,16 +22,12 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         super(Main_Window,self).__init__()
         self.setupUi(self)
         self.setWindowTitle("Teacher Page")
-        print("Teacher window is opened")
 
-        #User.set_currentuser("teacher@example.com")
-        self.current_user_email = User._current_user.email
+        #User.set_currentuser("admin@example.com")
+        #self.current_user = Authentication.get_current_user()
+        self.current_user_email = 'created@example.com'
+        #self.load_tasks(current_user.email)
 
-        current_date_time = QDateTime.currentDateTime()
-        formatted_date = current_date_time.toString("dd-MM-yyyy")
-        self.teacher_main_name.setText(f"Welcome {User._current_user.name}")
-        self.teacher_main_date.setText(f"{formatted_date}")
-        
         #hide admin tab if user is not admin
         tab_widget = self.tabWidget
         if User._current_user.user_type != "admin":
@@ -51,42 +47,76 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         #signal to create task button
         self.create_task_button.clicked.connect(self.create_task)
 
+        #signal to create teacher account
+        self.create_teacher_account_button.clicked.connect(self.check_enter_signup)
+
         self.show_Lesson_Schedule()
         self.show_Mentor_Schedule()
 
         self.create_lesson.clicked.connect(self.open_create_lesson)
         self.create_mentor.clicked.connect(self.open_create_mentor)
+        self.update_lessons.clicked.connect(self.refresh_lesson)
+        self.update_mentoring.clicked.connect(self.refresh_mentor)
 
         self.lesson_att_insert.clicked.connect(self.show_lesson_attendance_page)
         self.mentor_att_insert.clicked.connect(self.show_mentor_attendance_page)
         self.lesson_att_show.clicked.connect(self.show_lesson_attendance_show)
         self.mentor_att_show.clicked.connect(self.show_mentor_attendance_show)
-        
+
         self.create_announcement_button.clicked.connect(self.create_announcement)
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
-        self.update_information_button.clicked.connect(self.update_information)
+        #self.teacher_profil_city_edit.textChanged.connect(self.on_city_changed)
+        #self.teacher_profil_tel_edit.textChanged.connect(self.on_tel_changed)
 
-        self.teacher_singout_button.clicked.connect(self.sign_out)
+    #--------------- Create Teacher Account------------------
+    def check_enter_signup(self):
+        name = self.teacher_name_admin.text()
+        surname = self.teache_surname_admin.text()
+        birthday = self.teacher_birthdate_admin.date().toString(QtCore.Qt.ISODate) #ISO standart for Date
+        city = self.teacher_city_admin.text()
+        email = self.teacher_email_admin.text()
+        phone_number=self.teacher_tel_admin.text()
+        password = self.teacher_password_admin.text()
+        if (name == '' or surname == '' or birthday=='' or city == '' or email == '' or password == ''):
+            self.ui_main_3_window.statusBar().showMessage("Please fill in the blanks!", 2000)
+        elif not self.is_valid_email(email):
+            self.ui_main_3_window.statusBar().showMessage("Please enter a valid email address!", 2000)
+        elif not self.is_valid_password(password):
+            self.ui_main_3_window.statusBar().showMessage("Please enter a valid password!", 2000)
+        else:
+            self.create_Teacher(name, surname,email, birthday, city,phone_number, password)
 
-        print("teacher init is completed")
-        print("QTextBrowser Size:", self.announcement_textbrowser.toPlainText())
+    def is_valid_email(self, email):
+        email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        return re.match(email_regex, email)
+    
+    def is_valid_password(self,password):
+        password = self.teacher_password_admin.text()
 
-    def sign_out(self):
-        self.close()
-        QCoreApplication.quit()
+        if len(password) <= 8 and any(c.isalpha() for c in password) and any(c.isdigit() for c in password) and any(c.isascii() and not c.isalnum() for c in password):
+            return True
+        else:
+            return False
+    
+    def create_Teacher(self,name, surname, email, birthday, city,phone_number, password):
+        if not User.email_exists(email):
+            User.create_user(name, surname, email, birthday, city, phone_number, password, user_type="teacher")
+            print("User created successfully.")
+        else:
+            QMessageBox.warning(None, 'Warning', f'The email {email} already exists.', QMessageBox.Ok)
 
-        try:
-            os.system("python3 sign/main_window.py")
-        except Exception as e:
-            print(f"Error running main_window.py: {e}")
-        
-
-    def update_information(self):
-        new_tel = self.teacher_profil_tel_edit.toPlainText()
+    #-----------------------------------------------------------------
+                    
+    def on_city_changed(self):
         new_city = self.teacher_profil_city_edit.toPlainText()
-        updated_info = {"phone_number": new_tel, "city": new_city  }
+        User.update_user_information(User._current_user.email, city=new_city)
+        self.showUpdateAlert("City is updated")
+
+    def on_tel_changed(self):
+        new_tel = self.teacher_profil_tel_edit.text()
+        updated_info = {"phone_number": new_tel }
         User.update_user_information(User._current_user.email, **updated_info)
-        self.showUpdateAlert("Information is updated")
+        self.showUpdateAlert("Phone number is updated")
 
     def display_announcement_to_delete(self):
         user = User._current_user
@@ -150,13 +180,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
     )
 
         # Set the formatted text in the QTextBrowser
-        try:
-            # Set the formatted text in the QTextBrowser
-            self.announcement_textbrowser.setHtml(formatted_announcements)
-        except Exception as e:
-            print(f"Exception during setHtml: {e}")
-        print("Announcements are loaded")
-        print(formatted_announcements)
+        self.announcement_textbrowser.setHtml(formatted_announcements)
 
     def open_create_lesson(self):
 
@@ -190,7 +214,6 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         teacher_plan_tab = self.findChild(QTableWidget, 'teacher_plan_lesson')
         table = User.get_LessonSchedule() 
-
        
         if isinstance(table, QTableWidget):
             teacher_plan_tab.clear()  

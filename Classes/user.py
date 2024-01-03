@@ -102,7 +102,7 @@ class User():
         except Exception as e:
             print(f"Error reading user data from file: {e}")
         return None
-
+    
     @classmethod
     def set_currentuser(cls, email):
         try:
@@ -240,33 +240,6 @@ class User():
         return cls.table_lesson
     
     @classmethod
-    def get_Mentor_Attendance(cls):
-        if cls.table_mentoring is None: 
-            cls.table_mentoring = QTableWidget()
-            cls.table_mentoring.setColumnCount(2) 
-
-        try:
-            with open(cls.FILE_MENTOR, 'r', newline='') as file:
-                reader = csv.reader(file)
-                cls.table_mentoring.setRowCount(0)
-                row_number = 0
-
-                for row in reader:
-                    if len(row) > 1:
-                        cls.table_mentoring.insertRow(row_number)
-                        mentor_name = row[1]
-                        cls.table_mentoring.setItem(row_number, 0, QTableWidgetItem(mentor_name)) 
-                        button = QPushButton("List")
-                        button.clicked.connect(lambda _, mentor=mentor_name: cls.open_students_page_mentor(mentor))
-                        cls.table_mentoring.setCellWidget(row_number, 1, button) 
-                        row_number += 1
-            
-        except Exception as e:
-            print(f"Error in getting lesson: {e}")
-
-        return cls.table_mentoring
-    
-    @classmethod
     def get_Mentor_Attendance_Student(cls, email):
         if cls.table_lesson is None: 
             cls.table_lesson = QTableWidget()
@@ -295,6 +268,33 @@ class User():
             print(f"Error: {e}")
 
         return cls.table_lesson
+    
+    @classmethod
+    def get_Mentor_Attendance(cls):
+        if cls.table_mentoring is None: 
+            cls.table_mentoring = QTableWidget()
+            cls.table_mentoring.setColumnCount(2) 
+
+        try:
+            with open(cls.FILE_MENTOR, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_mentoring.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1:
+                        cls.table_mentoring.insertRow(row_number)
+                        mentor_name = row[1]
+                        cls.table_mentoring.setItem(row_number, 0, QTableWidgetItem(mentor_name)) 
+                        button = QPushButton("List")
+                        button.clicked.connect(lambda _, mentor=mentor_name: cls.open_students_page_mentor(mentor))
+                        cls.table_mentoring.setCellWidget(row_number, 1, button) 
+                        row_number += 1
+            
+        except Exception as e:
+            print(f"Error in getting lesson: {e}")
+
+        return cls.table_mentoring
     
     @classmethod
     def open_students_page_lesson(cls, item):
@@ -421,9 +421,23 @@ class User():
         student_name = cls.students_table.item(row, 1).text()
         student_surname = cls.students_table.item(row, 2).text()
 
-        with open(cls.FILE_ATT_MENTOR, "a", newline="") as file:
+        existing_mentor = False
+        updated_students = []
+
+        with open(cls.FILE_ATT_MENTOR, newline="") as file:
+            reader = csv.reader(file)
+            for existing_row in reader:
+                if existing_row[0] == mentor_name and existing_row[1] == student_email:
+                    existing_mentor = True
+                    existing_row[-1] = attendance_status
+                updated_students.append(existing_row)
+
+        if not existing_mentor:
+            updated_students.append([mentor_name, student_email, student_name, student_surname, attendance_status])
+
+        with open(cls.FILE_ATT_MENTOR, "w", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow([mentor_name, student_email, student_name, student_surname, attendance_status])
+            writer.writerows(updated_students)
 
     @classmethod
     def get_students(cls):
