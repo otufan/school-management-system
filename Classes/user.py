@@ -209,6 +209,37 @@ class User():
         return cls.table_lesson
     
     @classmethod
+    def get_Lesson_Attendance_Student(cls, email):
+        if cls.table_lesson is None: 
+            cls.table_lesson = QTableWidget()
+            cls.table_lesson.setColumnCount(5) 
+
+        try:
+            with open(cls.FILE_ATT_LESSON, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_lesson.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1 and row[1] == email: 
+                        cls.table_lesson.insertRow(row_number)
+                        lesson_name, student_email, name, surname, attendance_status = row
+
+                        cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(name))
+                        cls.table_lesson.setItem(row_number, 1, QTableWidgetItem(surname))
+                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(student_email))
+                        cls.table_lesson.setItem(row_number, 3, QTableWidgetItem(lesson_name))
+                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(attendance_status))
+
+                        row_number += 1
+                        print(f"Row {row_number}: {name}, {surname}, {student_email}, {lesson_name}, {attendance_status}")
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        return cls.table_lesson
+    
+    @classmethod
     def get_Mentor_Attendance(cls):
         if cls.table_mentoring is None: 
             cls.table_mentoring = QTableWidget()
@@ -234,6 +265,36 @@ class User():
             print(f"Error in getting lesson: {e}")
 
         return cls.table_mentoring
+    
+    @classmethod
+    def get_Mentor_Attendance_Student(cls, email):
+        if cls.table_lesson is None: 
+            cls.table_lesson = QTableWidget()
+            cls.table_lesson.setColumnCount(5) 
+
+        try:
+            with open(cls.FILE_ATT_MENTOR, 'r', newline='') as file:
+                reader = csv.reader(file)
+                cls.table_lesson.setRowCount(0)
+                row_number = 0
+
+                for row in reader:
+                    if len(row) > 1 and row[1] == email: 
+                        cls.table_lesson.insertRow(row_number)
+                        mentoring_name, student_email, name, surname, attendance_status = row
+
+                        cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(name))
+                        cls.table_lesson.setItem(row_number, 1, QTableWidgetItem(surname))
+                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(student_email))
+                        cls.table_lesson.setItem(row_number, 3, QTableWidgetItem(mentoring_name))
+                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(attendance_status))
+
+                        row_number += 1
+
+        except Exception as e:
+            print(f"Error: {e}")
+
+        return cls.table_lesson
     
     @classmethod
     def open_students_page_lesson(cls, item):
@@ -281,20 +342,27 @@ class User():
 
     @classmethod
     def mark_attendance_lesson(cls, lesson_name, row, attendance_status):
-       
-        btn_widget = cls.students_table.cellWidget(row, 3)
-        attended_btn = btn_widget.layout().itemAt(0).widget()
-        not_attended_btn = btn_widget.layout().itemAt(1).widget()
-        attended_btn.setEnabled(False)
-        not_attended_btn.setEnabled(False)
-
         student_email = cls.students_table.item(row, 0).text()
         student_name = cls.students_table.item(row, 1).text()
         student_surname = cls.students_table.item(row, 2).text()
 
-        with open(cls.FILE_ATT_LESSON, "a", newline="") as file:
+        existing_lesson = False
+        updated_students = []
+
+        with open(cls.FILE_ATT_LESSON, newline="") as file:
+            reader = csv.reader(file)
+            for existing_row in reader:
+                if existing_row[0] == lesson_name and existing_row[1] == student_email:
+                    existing_lesson = True
+                    existing_row[-1] = attendance_status
+                updated_students.append(existing_row)
+
+        if not existing_lesson:
+            updated_students.append([lesson_name, student_email, student_name, student_surname, attendance_status])
+
+        with open(cls.FILE_ATT_LESSON, "w", newline="") as file:
             writer = csv.writer(file)
-            writer.writerow([lesson_name, student_email, student_name, student_surname, attendance_status])
+            writer.writerows(updated_students)
     
     
     @classmethod

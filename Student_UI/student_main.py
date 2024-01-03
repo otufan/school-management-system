@@ -9,7 +9,7 @@ from Student_UI.Ui_Student_Ui import *
 from Classes.task import Task
 from Classes.user import User
 
-#announcements_textBrowser
+
 
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -18,7 +18,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Student Page")
 
-        User.set_currentuser("student@example.com")
+        #User.set_currentuser("student@example.com")
 
         current_date_time = QDateTime.currentDateTime()
         formatted_date = current_date_time.toString("dd-MM-yyyy")
@@ -26,8 +26,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.student_main_date.setText(f"{formatted_date}")
 
         self.load_tasks(User._current_user.email)
-        self.show_Lesson_Schedule
-        self.show_Mentor_Schedule
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
 
         self.display_announcements()
         self.show_information()

@@ -7,9 +7,9 @@ from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets,QtCore
 from PyQt5.QtWidgets import QApplication, QMainWindow
-from Ui_main_2 import Ui_MainWindow as Ui_MainWindow_2
-from Ui_login_screen import Ui_Form as Ui_MainWindow_3
-from Ui_signup_screen import Ui_Form as Ui_MainWindow_4
+from sign.Ui_main_2 import Ui_MainWindow as Ui_MainWindow_2
+from sign.Ui_login_screen import Ui_Form as Ui_MainWindow_3
+from sign.Ui_signup_screen import Ui_Form as Ui_MainWindow_4
 from Classes.user import User
 from Student_UI.student_main import Main_Window as Ui_MainWindow_5
 from Teacher_UI.teacher_main import Main_Window as Ui_MainWindow_6
@@ -123,23 +123,24 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
             self.ui_main_3_window = QtWidgets.QMainWindow()
             self.ui_main_3 = Ui_MainWindow_6()
             self.ui_main_3.setupUi(self.ui_main_3_window)
-            self.ui_main_3_window.show()
+            self.ui_main_3.show()
             self.ui_main_3_window.resize(440,400)
         elif user_type == 'teacher':
             # Open Teacher UI
             self.ui_main_3_window = QtWidgets.QMainWindow()
             self.ui_main_3 = Ui_MainWindow_6()
             self.ui_main_3.setupUi(self.ui_main_3_window)
-            self.ui_main_3_window.show()
+            self.ui_main_3.show()
             self.ui_main_3_window.resize(440,400)
         elif user_type == 'student':
             self.ui_main_3_window = QtWidgets.QMainWindow()
             self.ui_main_3 = Ui_MainWindow_5()
             self.ui_main_3.setupUi(self.ui_main_3_window)
-            self.ui_main_3_window.show()
+            self.ui_main_3.show()
             self.ui_main_3_window.resize(440,400)
         else:
             print("Unknown user type!")
+        
 
             
     def check_enter_signup(self):
@@ -170,7 +171,7 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         self.ui_main_3_window = QtWidgets.QMainWindow()
         self.ui_main_3 = Ui_MainWindow_3()
         self.ui_main_3.setupUi(self.ui_main_3_window)
-        self.ui_main_3_window.show()
+        self.ui_main_3.show()
         self.ui_main_3_window.resize(440,400)
         self.ui_main_3.enter_Button.clicked.connect(self.check_enter) 
          

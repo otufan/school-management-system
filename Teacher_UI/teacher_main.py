@@ -13,6 +13,7 @@ from Teacher_UI.LessonAttendance import *
 from Teacher_UI.MentorAttendance import *
 from Teacher_UI.ShowAttendanceLesson import *
 from Teacher_UI.ShowAttendanceMentor import *
+from sign.Ui_login_screen import *
 
 class Main_Window(QMainWindow, Ui_MainWindow):
 
@@ -23,7 +24,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Teacher Page")
         print("Teacher window is opened")
 
-        #User.set_currentuser("admin@example.com")
+        #User.set_currentuser("teacher@example.com")
         self.current_user_email = User._current_user.email
 
         current_date_time = QDateTime.currentDateTime()
@@ -65,8 +66,20 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
         self.update_information_button.clicked.connect(self.update_information)
 
+        self.teacher_singout_button.clicked.connect(self.sign_out)
+
         print("teacher init is completed")
         print("QTextBrowser Size:", self.announcement_textbrowser.toPlainText())
+
+    def sign_out(self):
+        self.close()
+        QCoreApplication.quit()
+
+        try:
+            os.system("python3 sign/main_window.py")
+        except Exception as e:
+            print(f"Error running main_window.py: {e}")
+        
 
     def update_information(self):
         new_tel = self.teacher_profil_tel_edit.toPlainText()
