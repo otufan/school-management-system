@@ -210,63 +210,52 @@ class User():
     
     @classmethod
     def get_Lesson_Attendance_Student(cls, email):
-        if cls.table_lesson is None: 
+        if cls.table_lesson is None:
             cls.table_lesson = QTableWidget()
-            cls.table_lesson.setColumnCount(5) 
-
+            cls.table_lesson.setColumnCount(5)
         try:
             with open(cls.FILE_ATT_LESSON, 'r', newline='') as file:
                 reader = csv.reader(file)
                 cls.table_lesson.setRowCount(0)
                 row_number = 0
-
                 for row in reader:
-                    if len(row) > 1 and row[1] == email: 
+                    if len(row) > 1 and row[1] == email:
                         cls.table_lesson.insertRow(row_number)
                         lesson_name, student_email, name, surname, attendance_status = row
-
                         cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(name))
                         cls.table_lesson.setItem(row_number, 1, QTableWidgetItem(surname))
-                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(student_email))
+                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(attendance_status))  # Değiştirildi
                         cls.table_lesson.setItem(row_number, 3, QTableWidgetItem(lesson_name))
-                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(attendance_status))
-
+                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(student_email))  # Değiştirildi
                         row_number += 1
-                        print(f"Row {row_number}: {name}, {surname}, {student_email}, {lesson_name}, {attendance_status}")
-
+                        print(f"Row {row_number}: {name}, {surname}, {attendance_status}, {lesson_name}, {student_email}")
         except Exception as e:
             print(f"Error: {e}")
-
         return cls.table_lesson
     
     @classmethod
     def get_Mentor_Attendance_Student(cls, email):
-        if cls.table_lesson is None: 
+        if cls.table_lesson is None:
             cls.table_lesson = QTableWidget()
-            cls.table_lesson.setColumnCount(5) 
-
+            cls.table_lesson.setColumnCount(5)
         try:
             with open(cls.FILE_ATT_MENTOR, 'r', newline='') as file:
                 reader = csv.reader(file)
                 cls.table_lesson.setRowCount(0)
                 row_number = 0
-
                 for row in reader:
-                    if len(row) > 1 and row[1] == email: 
+                    if len(row) > 1 and row[1] == email:
                         cls.table_lesson.insertRow(row_number)
                         mentoring_name, student_email, name, surname, attendance_status = row
-
                         cls.table_lesson.setItem(row_number, 0, QTableWidgetItem(name))
                         cls.table_lesson.setItem(row_number, 1, QTableWidgetItem(surname))
-                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(student_email))
+                        cls.table_lesson.setItem(row_number, 2, QTableWidgetItem(attendance_status))  # Değiştirildi
                         cls.table_lesson.setItem(row_number, 3, QTableWidgetItem(mentoring_name))
-                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(attendance_status))
-
+                        cls.table_lesson.setItem(row_number, 4, QTableWidgetItem(student_email))  # Değiştirildi
                         row_number += 1
-
+                        print(f"Row {row_number}: {name}, {surname}, {attendance_status}, {mentoring_name}, {student_email}")
         except Exception as e:
             print(f"Error: {e}")
-
         return cls.table_lesson
     
     @classmethod
@@ -298,39 +287,35 @@ class User():
     
     @classmethod
     def open_students_page_lesson(cls, item):
-
         selected_lesson = item
-        students = cls.get_students() 
-
+        students = cls.get_students()
         if students:
             cls.students_window = QWidget()
             cls.students_table = QTableWidget()
-            cls.students_table.setColumnCount(4) 
-            cls.students_table.setRowCount(len(students))  
-
+            cls.students_table.setColumnCount(4)
+            cls.students_table.setRowCount(len(students))
             header = ["E-Mail","Name", "Surname", "Attendance"]
             cls.students_table.setHorizontalHeaderLabels(header)
-
+            for i, column_name in enumerate(header):
+                cls.students_table.setColumnWidth(i, 220)
+            for row, (email, name, surname) in enumerate(students):
+                cls.students_table.setRowHeight(row, 50)
             for row, (email, name, surname) in enumerate(students):
                 cls.students_table.setItem(row, 0, QTableWidgetItem(email))
                 cls.students_table.setItem(row, 1, QTableWidgetItem(name))
                 cls.students_table.setItem(row, 2, QTableWidgetItem(surname))
-
                 attended_btn = QPushButton("Attended")
                 attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_lesson(selected_lesson, r, "Attended"))
-
+                attended_btn.setFixedWidth(100)
                 not_attended_btn = QPushButton("Not Attended")
                 not_attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_lesson(selected_lesson, r, "Not Attended"))
-
+                not_attended_btn.setFixedWidth(100)
                 buttons_layout = QHBoxLayout()
                 buttons_layout.addWidget(attended_btn)
                 buttons_layout.addWidget(not_attended_btn)
-
                 widget = QWidget()
                 widget.setLayout(buttons_layout)
-
                 cls.students_table.setCellWidget(row, 3, widget)
-
             layout = QVBoxLayout()
             layout.addWidget(cls.students_table)
             cls.students_window.setLayout(layout)
@@ -367,39 +352,35 @@ class User():
     
     @classmethod
     def open_students_page_mentor(cls, item):
-
         selected_mentor = item
-        students = cls.get_students() 
-
+        students = cls.get_students()
         if students:
             cls.students_window = QWidget()
             cls.students_table = QTableWidget()
-            cls.students_table.setColumnCount(4) 
-            cls.students_table.setRowCount(len(students))  
-
+            cls.students_table.setColumnCount(4)
+            cls.students_table.setRowCount(len(students))
             header = ["E-Mail","Name", "Surname", "Attendance"]
             cls.students_table.setHorizontalHeaderLabels(header)
-
+            for i, column_name in enumerate(header):
+                cls.students_table.setColumnWidth(i, 220)
+            for row, (email, name, surname) in enumerate(students):
+                cls.students_table.setRowHeight(row, 50)
             for row, (email, name, surname) in enumerate(students):
                 cls.students_table.setItem(row, 0, QTableWidgetItem(email))
                 cls.students_table.setItem(row, 1, QTableWidgetItem(name))
                 cls.students_table.setItem(row, 2, QTableWidgetItem(surname))
-
                 attended_btn = QPushButton("Attended")
                 attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_mentor(selected_mentor, r, "Attended"))
-
+                attended_btn.setFixedWidth(100)
                 not_attended_btn = QPushButton("Not Attended")
                 not_attended_btn.clicked.connect(lambda _, r=row: cls.mark_attendance_mentor(selected_mentor, r, "Not Attended"))
-
+                not_attended_btn.setFixedWidth(100)
                 buttons_layout = QHBoxLayout()
                 buttons_layout.addWidget(attended_btn)
                 buttons_layout.addWidget(not_attended_btn)
-
                 widget = QWidget()
                 widget.setLayout(buttons_layout)
-
                 cls.students_table.setCellWidget(row, 3, widget)
-
             layout = QVBoxLayout()
             layout.addWidget(cls.students_table)
             cls.students_window.setLayout(layout)
