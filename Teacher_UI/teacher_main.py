@@ -1,6 +1,7 @@
 import sys
 import os
 import re
+from pathlib import Path
 sys.path.append(os.getcwd())
 
 from PyQt5.QtCore import *
@@ -24,9 +25,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setWindowTitle("Teacher Page")
 
         #User.set_currentuser("admin@example.com")
-        #self.current_user = Authentication.get_current_user()
-        self.current_user_email = 'created@example.com'
-        #self.load_tasks(current_user.email)
+
+        
+        self.current_user_email = User._current_user.email
 
         #hide admin tab if user is not admin
         tab_widget = self.tabWidget
@@ -35,6 +36,11 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.display_announcements()
         self.display_announcement_to_delete()
+
+        current_date_time = QDateTime.currentDateTime()
+        formatted_date = current_date_time.toString("dd-MM-yyyy")
+        self.teacher_main_name.setText(f"Welcome {User._current_user.name}")
+        self.teacher_main_date.setText(f"{formatted_date}")
 
         self.show_information()
         
@@ -67,6 +73,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
         #self.teacher_profil_city_edit.textChanged.connect(self.on_city_changed)
         #self.teacher_profil_tel_edit.textChanged.connect(self.on_tel_changed)
+
+        self.tabWidget.setCurrentIndex(0)
 
     #--------------- Create Teacher Account------------------
     def check_enter_signup(self):
@@ -382,9 +390,11 @@ class ComboBoxDelegate(QStyledItemDelegate):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    #app.setStyleSheet(Path("lightstyle.qss").read_text())
     app_window = Main_Window()    
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(app_window)
+    widget.setStyleSheet(Path("lightstyle.qss").read_text())
     widget.show()
     try:
         sys.exit(app.exec_())

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\MainUser\Desktop\tech_groupproject\school-management-system\sign\main_2.ui'
+# Form implementation generated from reading ui file '/Users/onur/Documents/GitHub/school-management-system/sign/main_2.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.10
 #
@@ -14,9 +14,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(458, 500)
-        MainWindow.setMinimumSize(QtCore.QSize(400, 500))
-        MainWindow.setMaximumSize(QtCore.QSize(1080, 1080))
+        MainWindow.resize(600, 500)
+        MainWindow.setMinimumSize(QtCore.QSize(600, 500))
+        MainWindow.setMaximumSize(QtCore.QSize(600, 500))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -24,16 +24,17 @@ class Ui_MainWindow(object):
         self.verticalLayout.setSpacing(0)
         self.verticalLayout.setObjectName("verticalLayout")
         self.frame = QtWidgets.QFrame(self.centralwidget)
-        self.frame.setMinimumSize(QtCore.QSize(400, 500))
-        self.frame.setMaximumSize(QtCore.QSize(1080, 1080))
+        self.frame.setMinimumSize(QtCore.QSize(600, 500))
+        self.frame.setMaximumSize(QtCore.QSize(600, 500))
+        self.frame.setSizeIncrement(QtCore.QSize(600, 500))
         self.frame.setStyleSheet("\n"
-"background-image: url(:/newPrefix/back2.png);")
+"background-image: url(sign/assets/back2.png);")
         self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")
         self.frame_2 = QtWidgets.QFrame(self.frame)
-        self.frame_2.setGeometry(QtCore.QRect(80, 110, 321, 341))
-        self.frame_2.setStyleSheet("background-image: url(:/newPrefix/C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/sign/assets/back2.png);")
+        self.frame_2.setGeometry(QtCore.QRect(100, 100, 321, 341))
+        self.frame_2.setStyleSheet("background-image: url(sign/assets/back2.png);")
         self.frame_2.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame_2.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame_2.setObjectName("frame_2")
@@ -41,22 +42,21 @@ class Ui_MainWindow(object):
         self.login_Button.setGeometry(QtCore.QRect(50, 230, 121, 71))
         font = QtGui.QFont()
         font.setFamily("Comic Sans MS")
-        font.setPointSize(12)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.login_Button.setFont(font)
-        self.login_Button.setStyleSheet("background-color: rgb(255, 255, 255);")
+        self.login_Button.setStyleSheet("background-color: rgb(249, 186, 50);")
         self.login_Button.setObjectName("login_Button")
         self.signup_Button = QtWidgets.QPushButton(self.frame_2)
         self.signup_Button.setGeometry(QtCore.QRect(180, 230, 121, 71))
         font = QtGui.QFont()
         font.setFamily("Comic Sans MS")
-        font.setPointSize(12)
+        font.setPointSize(14)
         font.setBold(True)
         font.setWeight(75)
         self.signup_Button.setFont(font)
-        self.signup_Button.setStyleSheet("background-color: rgb(255, 255, 255);\n"
-"")
+        self.signup_Button.setStyleSheet("background-color: rgb(249, 186, 50);")
         self.signup_Button.setObjectName("signup_Button")
         self.verticalLayout.addWidget(self.frame)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -69,4 +69,4 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
         self.login_Button.setText(_translate("MainWindow", "LOGIN"))
         self.signup_Button.setText(_translate("MainWindow", "SIGNUP"))
-
+#import b_rc

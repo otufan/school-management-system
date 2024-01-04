@@ -1,7 +1,7 @@
 import sys, os
 sys.path.append(os.getcwd())
 import re
-import json
+from pathlib import Path
 from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtGui import QIcon
 from PyQt5 import QtWidgets,QtCore
@@ -170,15 +170,17 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         self.ui_main_3_window = QtWidgets.QMainWindow()
         self.ui_main_3 = Ui_MainWindow_3()
         self.ui_main_3.setupUi(self.ui_main_3_window)
-        self.ui_main_3.show()
+        self.ui_main_3_window.setStyleSheet(Path("lightstyle.qss").read_text())
+        self.ui_main_3_window.show()
         self.ui_main_3_window.resize(440,400)
         self.ui_main_3.enter_Button.clicked.connect(self.check_enter) 
-         
+        
             
     def open_signup(self):
         self.ui_main_3_window = QtWidgets.QMainWindow()
         self.ui_main_3 = Ui_MainWindow_4()
         self.ui_main_3.setupUi(self.ui_main_3_window)
+        self.ui_main_3_window.setStyleSheet(Path("lightstyle.qss").read_text())
         self.ui_main_3_window.show()
         self.ui_main_3_window.resize(440,400)
         self.ui_main_3.sign_Button.clicked.connect(self.check_enter_signup)
@@ -186,6 +188,7 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app_window = Main_Window()
+    app_window.setStyleSheet(Path("lightstyle.qss").read_text())
     app_window.show()
     sys.exit(app.exec_())
 

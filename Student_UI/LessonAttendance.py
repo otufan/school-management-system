@@ -6,6 +6,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtGui import *
+from pathlib import Path
 
 
 class LessonAttendance(QMainWindow):
@@ -23,6 +24,8 @@ class LessonAttendance(QMainWindow):
 
         self.show_Lesson_Attendance()
 
+        self.setMinimumSize(500, 500)
+
     def show_Lesson_Attendance(self):
         table_lesson = User.get_Lesson_Attendance_Student(self.email)
         layout = QVBoxLayout()
@@ -32,7 +35,9 @@ class LessonAttendance(QMainWindow):
 
 def lesson_attendance():
     app = QApplication(sys.argv)
+    app.setStyleSheet(Path("lightstyle.qss").read_text())
     window = LessonAttendance()
+    window.setStyleSheet(Path("lightstyle.qss").read_text())
     window.show()
     sys.exit(app.exec_())
 
