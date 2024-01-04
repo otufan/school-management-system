@@ -1,0 +1,21 @@
+Mentoring Name, Student Email,Student Name, Student Surname, Attendance
+giris haziri,ada@ya.com,ada,sa,Not Attended
+giris haziri,ada@demirci.com,se,es,Not Attended
+giris haziri,ada@yani.com,akin,ak,Attended
+giris haziri,ayse@demir.com,ayse,fatma,Not Attended
+giris haziri,ada@demir.com,ada,demir,Attended
+giris haziri,alma@yani.com,a,b,Attended
+giris haziri,a@yani.com,a,b,Attended
+giris haziri,student@example.com,Student,Test,Attended
+giris haziri,yeni@yani.com,yeni,yeni,Attended
+giris haziri,adem@gmail.com,adem,madem,Not Attended
+cv,adem@gmail.com,adem,madem,Attended
+cv,yeni@yani.com,yeni,yeni,Attended
+cv,ada@ya.com,ada,sa,Not Attended
+cv,ada@demirci.com,se,es,Attended
+cv,ada@yani.com,akin,ak,Attended
+cv,ayse@demir.com,ayse,fatma,Attended
+cv,ada@demir.com,ada,demir,Attended
+cv,alma@yani.com,a,b,Not Attended
+cv,a@yani.com,a,b,Attended
+cv,student@example.com,Student,Test,Attended

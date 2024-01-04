@@ -1,6 +1,6 @@
-{"name": "Admin", "surname": "Test", "email": "admin@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "12345", "user_type": "admin"}
+{"name": "Admin", "surname": "Test", "email": "admin@example.com", "birthdate": "1990-01-01", "city": "dert", "phone_number": "123-456-7890", "password": "123Qwe..", "user_type": "admin"}
 {"name": "Teacher", "surname": "Test", "email": "teacher@example.com", "birthdate": "1990-01-01", "city": "Istsdf", "phone_number": "123-456-7890", "password": "123Qwe..", "user_type": "teacher"}
-{"name": "Student", "surname": "Test", "email": "student@example.com", "birthdate": "1990-01-01", "city": "Ist", "phone_number": "123-456-7890", "password": "123Qwe..", "user_type": "student"}
+{"name": "Student", "surname": "Test", "email": "student@example.com", "birthdate": "1990-01-01", "city": "derty", "phone_number": "123-456-7890", "password": "123Qwe..", "user_type": "student"}
 {"name": "a", "surname": "b", "email": "a@yani.com", "birthdate": "2023-01-01", "city": "efe", "phone_number": "23132", "password": "123Qwe..", "user_type": "student"}
 {"name": "a", "surname": "b", "email": "alma@yani.com", "birthdate": "2023-01-01", "city": "dfe", "phone_number": "21321", "password": "123Qwe..", "user_type": "student"}
 {"name": "ada", "surname": "demir", "email": "ada@demir.com", "birthdate": "2023-01-01", "city": "sdfw", "phone_number": "123124", "password": "123Qwe..", "user_type": "student"}

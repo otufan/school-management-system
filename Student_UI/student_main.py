@@ -1,17 +1,18 @@
 
 import sys, os
 sys.path.append(os.getcwd())
+from pathlib import Path
 
 
 from Classes.user import *
 from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
-from Ui_Student_Ui import *
+from Student_UI.Ui_Student_Ui import *
 from Classes.task import Task
 from Classes.user import User
-
-#announcements_textBrowser
+from Student_UI.LessonAttendance import *
+from Student_UI.MentorAttendance import *
 
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -30,6 +31,30 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.show_Lesson_Schedule
         self.show_Mentor_Schedule
         self.display_announcements()
+        self.lesson_attendance.clicked.connect(self.show_lesson_attendance_page)
+        self.mentor_attendance.clicked.connect(self.show_mentor_attendance_page)
+        self.show_information()
+
+        self.update_information_Button.clicked.connect(self.update_information)
+
+        self.tabWidget.setCurrentIndex(0)
+
+    def update_information(self):
+        new_tel = self.student_profil_tel_edit.toPlainText()
+        new_city = self.student_profil_city_edit.toPlainText()
+        updated_info = {"phone_number": new_tel, "city": new_city  }
+        User.update_user_information(User._current_user.email, **updated_info)
+        self.showUpdateAlert("Information is updated")
+
+    def show_information(self):
+        user = User._current_user
+        self.student_profil_name_edit.setText(user.name)
+        self.student_profil_surname_edit.setText(user.surname)
+        self.student_profil_birth_edit.setText(user.birthdate)
+        self.student_profil_mail_edit.setText(user.email)
+        self.student_profil_city_edit.setText(user.city)
+        self.student_profil_tel_edit.setText(user.phone_number)
+
 
     def display_announcements(self):
         # Get announcements
@@ -113,41 +138,34 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
     def show_Lesson_Schedule(self):
 
-        #student_plan_tab = self.findChild(QWidget, 'student_plan')
         student_plan_tab = self.findChild(QTableWidget, 'student_plan_lesson_list')
-        print('BURADA')
-
-        table = self.create_table(User.get_LessonSchedule(), 'student_plan_lesson_list')
-        table_layout = student_plan_tab.layout()
-        table_layout.addWidget(table)
+        table = User.get_LessonSchedule()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        student_plan_tab.setLayout(layout)
+      
 
     def show_Mentor_Schedule(self):
 
-        student_plan_tab = self.findChild(QWidget, 'student_plan')
+        student_plan_tab = self.findChild(QTableWidget, 'student_plan_mentor_list')    
+        table = User.get_Mentor_Schedule()
+        layout = QVBoxLayout()
+        layout.addWidget(table)        
+        student_plan_tab.setLayout(layout)
     
-        table = self.create_table(User.get_Mentor_Schedule(), 'student_plan_mentor_list')
-        table_layout = student_plan_tab.layout()
-        table_layout.addWidget(table)
+    def showUpdateAlert(self, alert):
+        message = alert
+        QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
 
-    def create_table(self, infos, table_name):
+    def show_lesson_attendance_page(self):
 
-        table = self.findChild(QTableWidget, table_name)
-        table.setRowCount(len(infos))
-        table.setColumnCount(len(infos[0]))
+        self.open_lesson_attendance_window = LessonAttendance(User._current_user.email)
+        self.open_lesson_attendance_window.show()
 
-        if table_name == 'student_plan_lesson_list':
-            table.setHorizontalHeaderLabels(['Lesson Date','Lesson Name','Lesson Start Time','Lesson Finish Time'])
-        else:
-            table.setHorizontalHeaderLabels(['Mentoring Date','Mentoring Subject','MEntoring Start Time','Mentoring Finish Time'])
+    def show_mentor_attendance_page(self):
 
-        for row_index, row_info in enumerate(infos):
-            for column_index, info in enumerate(row_info):
-                infos.setItem(row_index, column_index, QTableWidgetItem(info))
-
-        infos.resizeColumnsToContents()
-
-        return table
-
+        self.open_lesson_attendance_show = MentorAttendance(User._current_user.email)
+        self.open_lesson_attendance_show.show()
 
 class ComboBoxDelegate(QStyledItemDelegate):
     def createEditor(self, parent, option, index):
@@ -180,11 +198,16 @@ class ComboBoxDelegate(QStyledItemDelegate):
         message = f"Task:  {task_name} status is updated to: {new_status}"
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
 
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    #app.setStyleSheet(Path("lightstyle.qss").read_text())
     app_window = Main_Window()    
+    #app_window.setStyleSheet(Path("lightstyle.qss").read_text())
     widget = QtWidgets.QStackedWidget()
-    widget.addWidget(app_window)
+    widget.addWidget(app_window) 
+    widget.setStyleSheet(Path("lightstyle.qss").read_text())
     widget.show()
     try:
         sys.exit(app.exec_())
