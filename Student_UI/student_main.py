@@ -1,5 +1,6 @@
 import sys, os
 sys.path.append(os.getcwd())
+from pathlib import Path
 
 from Classes.user import *
 from PyQt5.QtCore import *
@@ -11,8 +12,6 @@ from Classes.user import User
 from Student_UI.LessonAttendance import *
 from Student_UI.MentorAttendance import *
 
-#announcements_textBrowser
-
 
 class Main_Window(QMainWindow, Ui_MainWindow):
     def __init__(self):
@@ -20,15 +19,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.setupUi(self)
         self.setWindowTitle("Student Page")
 
-        User.set_currentuser("ada@ya.com")
+        #User.set_currentuser("student@example.com")
 
-        #current_user = Authentication.get_current_user()
-        #self.load_tasks(current_user.email)
-        self.load_tasks('assigned@example.com')
-        self.show_Lesson_Schedule()
-        self.show_Mentor_Schedule()
-
-        
 
         current_date_time = QDateTime.currentDateTime()
         formatted_date = current_date_time.toString("dd-MM-yyyy")
@@ -36,8 +28,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.student_main_date.setText(f"{formatted_date}")
 
         self.load_tasks(User._current_user.email)
-        self.show_Lesson_Schedule
-        self.show_Mentor_Schedule
+        self.show_Lesson_Schedule()
+        self.show_Mentor_Schedule()
 
 
         self.display_announcements()
@@ -46,6 +38,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.show_information()
 
         self.update_information_Button.clicked.connect(self.update_information)
+
+        self.tabWidget.setCurrentIndex(0)
 
     def update_information(self):
         new_tel = self.student_profil_tel_edit.toPlainText()
@@ -186,11 +180,15 @@ class ComboBoxDelegate(QStyledItemDelegate):
         QMessageBox.information(None, "Item Updated", message, QMessageBox.Ok)
 
 
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
+    #app.setStyleSheet(Path("lightstyle.qss").read_text())
     app_window = Main_Window()    
+    #app_window.setStyleSheet(Path("lightstyle.qss").read_text())
     widget = QtWidgets.QStackedWidget()
-    widget.addWidget(app_window)
+    widget.addWidget(app_window) 
+    widget.setStyleSheet(Path("lightstyle.qss").read_text())
     widget.show()
     try:
         sys.exit(app.exec_())

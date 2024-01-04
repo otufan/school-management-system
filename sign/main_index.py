@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow
 from Ui_main_2 import Ui_MainWindow as Ui_MainWindow_2
 from Ui_main_3 import Ui_MainWindow as Ui_MainWindow_3
+from pathlib import Path
 
 class Main_Window(QMainWindow, Ui_MainWindow_2):
     def __init__(self):
@@ -24,5 +25,6 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     app_window = Main_Window()
+    app_window.setStyleSheet(Path("lightstyle.qss").read_text())
     app_window.show()
     sys.exit(app.exec_())

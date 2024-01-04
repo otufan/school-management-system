@@ -57,4 +57,4 @@ def show_attendance_ui(file_path):
     app.exec_()
 
 file_path = "data/lesson_attendance.csv"
-show_attendance_ui(file_path)
+#show_attendance_ui(file_path)

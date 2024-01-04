@@ -6,6 +6,7 @@ from PyQt5.QtCore import *
 from PyQt5.QtWidgets import *
 from PyQt5.QtWidgets import QApplication, QMainWindow, QTableWidgetItem
 from PyQt5.QtGui import *
+from pathlib import Path
 
 class MentorAttendance(QMainWindow):
     def __init__(self, email):
@@ -22,6 +23,8 @@ class MentorAttendance(QMainWindow):
 
         self.show_Mentor_Attendance()
 
+        self.setMinimumSize(500, 500)
+
     def show_Mentor_Attendance(self):
         table_lesson = User.get_Mentor_Attendance_Student(self.email)
         layout = QVBoxLayout()
@@ -31,7 +34,9 @@ class MentorAttendance(QMainWindow):
 
 def mentor_attendance():
     app = QApplication(sys.argv)
+    app.setStyleSheet(Path("lightstyle.qss").read_text())
     pencere = MentorAttendance()
+    pencere.setStyleSheet(Path("lightstyle.qss").read_text())
     pencere.show()
     sys.exit(app.exec_())
 

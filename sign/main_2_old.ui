@@ -6,20 +6,20 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>600</width>
+    <width>458</width>
     <height>500</height>
    </rect>
   </property>
   <property name="minimumSize">
    <size>
-    <width>600</width>
+    <width>400</width>
     <height>500</height>
    </size>
   </property>
   <property name="maximumSize">
    <size>
-    <width>600</width>
-    <height>500</height>
+    <width>1080</width>
+    <height>1080</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -46,20 +46,14 @@
      <widget class="QFrame" name="frame">
       <property name="minimumSize">
        <size>
-        <width>600</width>
+        <width>400</width>
         <height>500</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>600</width>
-        <height>500</height>
-       </size>
-      </property>
-      <property name="sizeIncrement">
-       <size>
-        <width>600</width>
-        <height>500</height>
+        <width>1080</width>
+        <height>1080</height>
        </size>
       </property>
       <property name="styleSheet">
@@ -75,8 +69,8 @@ background-image: url(:/newPrefix/back2.png);</string>
       <widget class="QFrame" name="frame_2">
        <property name="geometry">
         <rect>
-         <x>100</x>
-         <y>100</y>
+         <x>80</x>
+         <y>110</y>
          <width>321</width>
          <height>341</height>
         </rect>
@@ -102,13 +96,13 @@ background-image: url(:/newPrefix/back2.png);</string>
         <property name="font">
          <font>
           <family>Comic Sans MS</family>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(249, 186, 50);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);</string>
         </property>
         <property name="text">
          <string>LOGIN</string>
@@ -126,13 +120,14 @@ background-image: url(:/newPrefix/back2.png);</string>
         <property name="font">
          <font>
           <family>Comic Sans MS</family>
-          <pointsize>14</pointsize>
+          <pointsize>12</pointsize>
           <weight>75</weight>
           <bold>true</bold>
          </font>
         </property>
         <property name="styleSheet">
-         <string notr="true">background-color: rgb(249, 186, 50);</string>
+         <string notr="true">background-color: rgb(255, 255, 255);
+</string>
         </property>
         <property name="text">
          <string>SIGNUP</string>
