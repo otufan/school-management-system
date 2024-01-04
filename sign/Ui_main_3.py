@@ -29,7 +29,7 @@ class Ui_MainWindow(object):
         self.frame.setMaximumSize(QtCore.QSize(600, 500))
         self.frame.setSizeIncrement(QtCore.QSize(600, 500))
         self.frame.setStyleSheet("background-color: rgb(10, 98, 38);\n"
-"background-image: url(sign/assets/back2.png);")
+"background-image: url(:/newPrefix/back2.png);")
         self.frame.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")

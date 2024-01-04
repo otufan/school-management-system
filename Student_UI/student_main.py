@@ -30,6 +30,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         
         tab_widget = self.tabWidget
         tab_widget.removeTab(5)
+        tab_widget.removeTab(4)
 
         self.load_tasks(User._current_user.email)
         self.show_Lesson_Schedule()
