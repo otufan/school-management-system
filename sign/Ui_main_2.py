@@ -27,8 +27,7 @@ class Ui_MainWindow(object):
         self.frame.setMinimumSize(QtCore.QSize(600, 500))
         self.frame.setMaximumSize(QtCore.QSize(600, 500))
         self.frame.setSizeIncrement(QtCore.QSize(600, 500))
-        self.frame.setStyleSheet("\n"
-"background-image: url(sign/assets/back2.png);")
+        self.frame.setStyleSheet("background-image: url(sign/assets/back2.png);")
         self.frame.setFrameShape(QtWidgets.QFrame.NoFrame)
         self.frame.setFrameShadow(QtWidgets.QFrame.Raised)
         self.frame.setObjectName("frame")

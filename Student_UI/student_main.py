@@ -11,6 +11,7 @@ from Classes.task import Task
 from Classes.user import User
 from Student_UI.LessonAttendance import *
 from Student_UI.MentorAttendance import *
+from sign.Ui_login_screen import Ui_Form as Ui_MainWindow_3
 
 
 class Main_Window(QMainWindow, Ui_MainWindow):
@@ -26,6 +27,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         formatted_date = current_date_time.toString("dd-MM-yyyy")
         self.student_main_name.setText(f"Welcome {User._current_user.name}")
         self.student_main_date.setText(f"{formatted_date}")
+        
+        tab_widget = self.tabWidget
+        tab_widget.removeTab(5)
 
         self.load_tasks(User._current_user.email)
         self.show_Lesson_Schedule()
@@ -39,9 +43,24 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.update_information_Button.clicked.connect(self.update_information)
 
+        self.sign_out_button.clicked.connect(self.open_login)
+
         self.tabWidget.setCurrentIndex(0)
 
+    def open_login(self):
+        self.ui_main_3_window = QtWidgets.QMainWindow()
+        self.ui_main_3 = Ui_MainWindow_3()
+        self.ui_main_3.setupUi(self.ui_main_3_window)
+        #self.ui_main_3_window.setStyleSheet(Path("lightstyle.qss").read_text())
+        self.ui_main_3_window.show()
+        self.ui_main_3_window.resize(440,400)
+        self.ui_main_3.enter_Button.clicked.connect(Ui_MainWindow_3.check_enter) 
+
+
     def update_information(self):
+        self.student_profil_tel_edit = self.findChild(QtWidgets.QTextEdit,"student_profil_tel_edit")
+        self.student_profil_city_edit = self.findChild(QtWidgets.QTextEdit,"student_profil_city_edit")
+
         new_tel = self.student_profil_tel_edit.toPlainText()
         new_city = self.student_profil_city_edit.toPlainText()
         updated_info = {"phone_number": new_tel, "city": new_city  }
@@ -73,7 +92,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         for announcement in announcements
     )
         # Set the formatted text in the QTextBrowser
-        self.announcements_textBrowser.setHtml(formatted_announcements)
+        ui_element= self.findChild(QtWidgets.QTextBrowser, "announcements_textBrowser")
+        ui_element.setHtml(formatted_announcements)
+        #self.announcements_textBrowser.setHtml(formatted_announcements)
 
     def load_tasks(self, email):
         tasks = Task.retrieve_task_per_assignee(email)
