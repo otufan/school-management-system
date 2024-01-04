@@ -33,6 +33,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         tab_widget = self.tabWidget
         if User._current_user.user_type != "admin":
             tab_widget.removeTab(6)
+        tab_widget.removeTab(5)
 
         self.display_announcements()
         self.display_announcement_to_delete()
@@ -71,13 +72,31 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.create_announcement_button.clicked.connect(self.create_announcement)
         self.delete_announcement_button.clicked.connect(self.delete_announcement)
-        #self.teacher_profil_city_edit.textChanged.connect(self.on_city_changed)
-        #self.teacher_profil_tel_edit.textChanged.connect(self.on_tel_changed)
+
+        self.update_information_button.clicked.connect(self.update_information)
 
         self.tabWidget.setCurrentIndex(0)
 
+    def update_information(self):
+        self.teacher_profil_tel_edit = self.findChild(QtWidgets.QTextEdit,"teacher_profil_tel_edit")
+        self.teacher_profil_city_edit = self.findChild(QtWidgets.QTextEdit,"teacher_profil_city_edit")
+
+        new_tel = self.teacher_profil_tel_edit.toPlainText()
+        new_city = self.teacher_profil_city_edit.toPlainText()
+        updated_info = {"phone_number": new_tel, "city": new_city  }
+        User.update_user_information(User._current_user.email, **updated_info)
+        self.showUpdateAlert("Information is updated")
+
     #--------------- Create Teacher Account------------------
     def check_enter_signup(self):
+        self.teacher_name_admin = self.findChild(QtWidgets.QLineEdit, "teacher_name_admin")
+        self.teache_surname_admin = self.findChild(QtWidgets.QLineEdit, "teache_surname_admin")
+        self.teacher_city_admin = self.findChild(QtWidgets.QLineEdit, "teacher_city_admin")
+        self.teacher_email_admin = self.findChild(QtWidgets.QLineEdit, "teacher_email_admin")
+        self.teacher_tel_admin = self.findChild(QtWidgets.QLineEdit, "teacher_tel_admin")
+        self.teacher_password_admin = self.findChild(QtWidgets.QLineEdit, "teacher_password_admin")
+        self.teacher_birthdate_admin = self.findChild(QtWidgets.QDateEdit, "teacher_birthdate_admin")
+
         name = self.teacher_name_admin.text()
         surname = self.teache_surname_admin.text()
         birthday = self.teacher_birthdate_admin.date().toString(QtCore.Qt.ISODate) #ISO standart for Date
@@ -114,26 +133,15 @@ class Main_Window(QMainWindow, Ui_MainWindow):
             QMessageBox.warning(None, 'Warning', f'The email {email} already exists.', QMessageBox.Ok)
 
     #-----------------------------------------------------------------
-                    
-    def on_city_changed(self):
-        new_city = self.teacher_profil_city_edit.toPlainText()
-        User.update_user_information(User._current_user.email, city=new_city)
-        self.showUpdateAlert("City is updated")
-
-    def on_tel_changed(self):
-        new_tel = self.teacher_profil_tel_edit.text()
-        updated_info = {"phone_number": new_tel }
-        User.update_user_information(User._current_user.email, **updated_info)
-        self.showUpdateAlert("Phone number is updated")
 
     def display_announcement_to_delete(self):
         user = User._current_user
         announcements_to_delete = User.get_announcements_to_delete(user.email, user.user_type)
+        self.announcement_to_delete_combobox = self.findChild(QtWidgets.QComboBox, "announcement_to_delete_combobox")
         self.announcement_to_delete_combobox.clear()
         self.announcement_to_delete_combobox.addItem("")
         for announcement in announcements_to_delete:
             self.announcement_to_delete_combobox.addItem(announcement['announcement'])
-        pass
 
     def show_information(self):
         user = User._current_user
@@ -145,9 +153,11 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.teacher_profil_tel_edit.setText(user.phone_number)
 
     def delete_announcement(self):
+        self.announcement_to_delete_combobox = self.findChild(QtWidgets.QComboBox, "announcement_to_delete_combobox")
         announcement = self.announcement_to_delete_combobox.currentText()
         if announcement != "":
             User.delete_announcement(announcement)
+            self.display_announcement_to_delete()
             self.announcement_to_delete_combobox.setCurrentIndex(0)
             self.display_announcements()
             self.showUpdateAlert(f"{announcement} is deleted!")
@@ -157,7 +167,8 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         
 
     def create_announcement(self):
-        text = self.announcement_lineEdit.text()
+        ui_element= self.findChild(QtWidgets.QLineEdit, "announcement_lineEdit")
+        text = ui_element.text()
         email = User._current_user.email
         if text != "":
             success, message = User.create_announcement(text, email)
@@ -186,9 +197,9 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         f"<p style='font-size:12pt; font-style:italic;'>Announcement by {announcement['created_by']} ({announcement['timestamp']})</p>"
         for announcement in announcements
     )
-
         # Set the formatted text in the QTextBrowser
-        self.announcement_textbrowser.setHtml(formatted_announcements)
+        ui_element= self.findChild(QtWidgets.QTextBrowser, "announcement_textbrowser")
+        ui_element.setHtml(formatted_announcements)
 
     def open_create_lesson(self):
 
@@ -244,6 +255,10 @@ class Main_Window(QMainWindow, Ui_MainWindow):
         self.show_Mentor_Schedule()   
 
     def create_task(self):
+        self.task_name_input = self.findChild(QtWidgets.QLineEdit, 'task_name_input')
+        self.due_date_input = self.findChild(QtWidgets.QDateEdit, 'due_date_input')
+        self.assignee_input_combo = self.findChild(QtWidgets.QComboBox, 'assignee_input_combo')
+
         task_name = self.task_name_input.text()
         due_date = self.due_date_input.date().toString("dd/MM/yyyy")
         assignee = self.assignee_input_combo.currentText()
@@ -390,15 +405,20 @@ class ComboBoxDelegate(QStyledItemDelegate):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    #app.setStyleSheet(Path("lightstyle.qss").read_text())
-    app_window = Main_Window()    
+
+    # Read the style sheet from lightstyle.qss
+    style_sheet = Path("lightstyle.qss").read_text()
+    app.setStyleSheet(style_sheet)
+
+    app_window = Main_Window()
+    app_window.show()
+
     widget = QtWidgets.QStackedWidget()
     widget.addWidget(app_window)
-    widget.setStyleSheet(Path("lightstyle.qss").read_text())
     widget.show()
+
     try:
         sys.exit(app.exec_())
-
     except:
         print("Exiting")
 

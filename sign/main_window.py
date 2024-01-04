@@ -1,5 +1,7 @@
 import sys, os
+
 sys.path.append(os.getcwd())
+
 import re
 from pathlib import Path
 from PyQt5.QtWidgets import QMessageBox
@@ -26,7 +28,6 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         self.signup_Button.clicked.connect(self.open_signup)
         self.signup_Button.clicked.connect(self.close)
         
-        
     
     def create_Student(self,name, surname, email, birthday, city,phone_number, password):
         if not User.email_exists(email):
@@ -38,40 +39,7 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
             self.open_login()
         else:
             QMessageBox.warning(None, 'Warning', f'The email {email} already exists.', QMessageBox.Ok)
-            
-        #User.create_user(name, surname, email, birthday, city, phone_number, password, user_type="student")
-               
-        #Call the create_user function from Classes user.py file.
         
-        #_name = name
-        #_surname = surname
-        #_birthday = birthday
-        #_city = city
-        #_email = email
-        #_password = password
-        
-        #student_data = {
-        #    "name": _name,
-         #   "surname": _surname,
-          #  "birthday": _birthday,
-           # "city": _city,
-            #"email": _email,
-            #"password": _password
-        #}
-
-        #try:
-            #with open("C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/data/student.txt", "r") as file:
-            #    students = json.load(file)
-        #except FileNotFoundError:
-        #    students = []
-
-       # students.append(student_data)
-
-       # with open("C:/Users/MainUser/Desktop/tech_groupproject/school-management-system/data/student.txt", "w") as file:
-        #    json.dump(students, file, indent=2)
-
-
-    
 
     def is_valid_email(self, email):
         email_regex = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -114,11 +82,12 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
                 
             else:
                 QMessageBox.warning(None, 'Warning', f'Invalid email or password!', QMessageBox.Ok)
-                #self.ui_main_3_window.statusBar().showMessage("Invalid email or password!", 2000)
+                #self.ui_main_3_window.statusBar().showMessage("Invalid email or password!", 2000
 
     def open_main_window(self, user_type):
         if user_type == 'admin':
             # Open Admin account in Teacher UI
+            
             self.ui_main_3_window = QtWidgets.QMainWindow()
             self.ui_main_3 = Ui_MainWindow_6()
             self.ui_main_3.setupUi(self.ui_main_3_window)
@@ -170,7 +139,7 @@ class Main_Window(QMainWindow, Ui_MainWindow_2):
         self.ui_main_3_window = QtWidgets.QMainWindow()
         self.ui_main_3 = Ui_MainWindow_3()
         self.ui_main_3.setupUi(self.ui_main_3_window)
-        self.ui_main_3_window.setStyleSheet(Path("lightstyle.qss").read_text())
+        #self.ui_main_3_window.setStyleSheet(Path("lightstyle.qss").read_text())
         self.ui_main_3_window.show()
         self.ui_main_3_window.resize(440,400)
         self.ui_main_3.enter_Button.clicked.connect(self.check_enter) 

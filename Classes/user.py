@@ -514,9 +514,11 @@ class User():
                 for line in file:
                     announcement_data = json.loads(line)
                     announcements.append(announcement_data)
+            sorted_announcements = sorted(announcements, key=lambda x: x.get("timestamp"), reverse=True)
+
         except Exception as e:
             print(f"Error reading announcements from file: {e}")
-        return announcements
+        return sorted_announcements
     
     @classmethod
     def get_announcements_to_delete(cls, email, user_type):
