@@ -44,7 +44,7 @@ class Main_Window(QMainWindow, Ui_MainWindow):
 
         self.update_information_Button.clicked.connect(self.update_information)
 
-        self.sign_out_button.clicked.connect(self.open_login)
+        #self.sign_out_button.clicked.connect(self.open_login)
 
         self.tabWidget.setCurrentIndex(0)
 
